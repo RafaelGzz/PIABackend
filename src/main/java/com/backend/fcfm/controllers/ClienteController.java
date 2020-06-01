@@ -23,8 +23,8 @@ import com.backend.fcfm.models.dao.ClienteDao;
 @SessionAttributes("cliente")
 public class ClienteController {
 
-	@Autowired
-	private ClienteDao  clienteDao;
+	//@Autowired
+	private ClienteDao clienteDao;
 	
 	@GetMapping({"","/"})
 	public String peliculas(Model model) {
