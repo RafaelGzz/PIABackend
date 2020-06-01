@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form th:action="@{/cliente}" method="get" th:object="${cliente}">
+		<div> 
+			<label for="nombreCompleto">Nombre Completo </label>
+			<div> 
+				<input type="text" id="name" th:field="*{nombreCompleto}" >
+			</div>
+			<div th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}"> </div>
+		</div>
+		
+		<br>
+		
+		<div> 
+			<label for="correo">CorreoElectronico </label>
+			<div> 
+				<input type="text" id="name" th:field="*{correo}" >
+			</div>
+			  <div th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"> </div>	
+		</div>
+		
+		<br>
+		
+		<div> 
+			<label for="telefono">Telefono </label>
+			<div> 
+				<input type="text" id="name" th:field="*{telefono}" >
+			</div>
+			   <div th:if="${#fields.hasErrors('age')}" th:errors="*{telefono}"> </div>
+		</div>
+		
+		<br>
+		
+		<div> 
+			<label for="direccion">Dirección </label>
+			<div> 
+				<input type="text" id="name" th:field="*{direccion}" >
+			</div>
+			<div th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"> </div>
+		</div>
+<br>
+
+	<div> 
+			<label for="monto">Dirección </label>
+			<div> 
+				<input type="text" id="name" th:field="*{monto}" >
+			</div>
+			<div th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}"> </div>
+		</div>
+		
+		
+		
+
+		<div> 
+			<div> 
+				<input type="submit" id="name" value="Enviar" >
+			</div>
+		</div>
+	</form>
+
+</body>
+</html>
