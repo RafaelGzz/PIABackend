@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
-import com.backend.fcfm.models.Cliente;
+
 
 @Entity
 @Table(name="prestamo")
@@ -26,8 +27,7 @@ public class Prestamo {
 
 	@Id
 	private Cliente idCliente;
-
-	@Column(name="monto")
+	@OneToOne
 	private Cliente monto;
 	
 	@Column(name="fecha_creacion")
