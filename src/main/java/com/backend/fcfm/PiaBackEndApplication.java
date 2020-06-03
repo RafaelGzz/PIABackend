@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PiaBackEnd2Application {
+public class PiaBackEndApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PiaBackEnd2Application.class, args);
+		SpringApplication.run(PiaBackEndApplication.class, args);
 		//System.out.println("hey");
 	}
 

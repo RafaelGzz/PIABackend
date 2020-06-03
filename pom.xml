@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.backend.fcfm</groupId>
-	<artifactId>PIABackEnd2</artifactId>
+	<artifactId>PIABackEnd</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>PIABackEnd2</name>
+	<name>PIABackEnd</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

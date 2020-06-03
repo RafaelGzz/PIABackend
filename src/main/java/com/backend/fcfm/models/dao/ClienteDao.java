@@ -11,4 +11,5 @@ public interface ClienteDao {
 	void insert(Cliente nuevo);
 	void update(Cliente nuevo);
 	void delete(Long id);
+	Cliente login(String user, String password);
 }

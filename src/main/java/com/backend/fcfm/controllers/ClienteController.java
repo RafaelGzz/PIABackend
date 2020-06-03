@@ -2,7 +2,6 @@ package com.backend.fcfm.controllers;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,50 +13,45 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.backend.fcfm.entitys.Cliente;
-import com.backend.fcfm.models.dao.ClienteDao;
-
-
 
 @Controller
-@RequestMapping(path="/cliente")
+@RequestMapping(path = "/cliente")
 @SessionAttributes("cliente")
 public class ClienteController {
 
-	//@Autowired
-	private ClienteDao clienteDao;
-	
-	@GetMapping({"","/"})
+	// @Autowired
+	// private ClienteDao clienteDao;
+
+	@GetMapping({ "", "/" })
 	public String peliculas(Model model) {
-		model.addAttribute("titulo","Cliente");
-		//model.addAttribute("Cliente",ClienteDao.findAll());
-		
+		model.addAttribute("titulo", "Cliente");
+		// model.addAttribute("Cliente",ClienteDao.findAll());
+
 		return "catalogo/cliente/lista";
 	}
-	
-	@GetMapping({"/form"})
+
+	@GetMapping({ "/form" })
 	public String form(Model model) {
-	
+
 		return "catalogo/cliente/form";
 	}
-	
-	@PostMapping({"/guardar"})
-	public String guardar(@Valid Cliente peliculas,BindingResult result,Model model,SessionStatus sesion ) {
+
+	@PostMapping({ "/guardar" })
+	public String guardar(@Valid Cliente peliculas, BindingResult result, Model model, SessionStatus sesion) {
 
 		return "redirect:/cliente";
 	}
-	
-	@GetMapping({"/form/{id}"})
-	public String editar(@PathVariable Long id,Model model) {
-	
+
+	@GetMapping({ "/form/{id}" })
+	public String editar(@PathVariable Long id, Model model) {
+
 		return "catalogo/cliente/form";
 	}
-	
-	@GetMapping({"/eliminar/{id}"})
-	public String eliminar(@PathVariable Long id,Model model) {
 
-
+	@GetMapping({ "/eliminar/{id}" })
+	public String eliminar(@PathVariable Long id, Model model) {
 
 		return "redirect:/cliente";
 	}
-	
+
 }

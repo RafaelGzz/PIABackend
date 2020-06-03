@@ -1,0 +1,1 @@
+insert into cliente(id_cliente, user, password, nombre_completo, correo, telefono, direccion, monto) values (0, 'Admin', 'admin', 'Administrador', 'admin@admin.com', 0, 'Nowere', 0)
