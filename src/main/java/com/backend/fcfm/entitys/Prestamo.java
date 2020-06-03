@@ -1,5 +1,4 @@
 package com.backend.fcfm.entitys;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import com.backend.fcfm.validators.pagado;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -48,7 +48,9 @@ public class Prestamo {
 	private String tipoPrestamo;
 	@NotNull
 	private int abonoTotal;
+	
 	@NotNull
+	@pagado
 	private int pagado;
 
 	public Integer getIdPrestamo() {
