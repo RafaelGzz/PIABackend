@@ -27,7 +27,7 @@ public class Prestamo {
 	private Integer idPrestamo;
 
 	@ManyToOne
-	@JoinColumn(name = "id_cliente", referencedColumnName = "idCliente")
+	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
 	@NotNull
@@ -47,12 +47,18 @@ public class Prestamo {
 
 	@NotNull
 	private Integer tipoPrestamo;
+	
 	@NotNull
 	private Long abonoTotal;
 
 	@NotNull
 	@pagado
 	private Integer pagado;
+	
+	public Prestamo() {
+		this.pagado = 0;
+		this.abonoTotal = 0l;
+	}
 
 	public Integer getIdPrestamo() {
 		return idPrestamo;

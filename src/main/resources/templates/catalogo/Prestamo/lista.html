@@ -25,7 +25,7 @@
 			<tbody>
 				<tr th:each="prestamo: ${prestamos}">
 					<td th:text="${prestamo.idPrestamo}"></td>
-					<td th:text="${prestamo.cliente}"></td>
+					<td th:text="${prestamo.cliente.idCliente}"></td>
 					<td th:text="${prestamo.monto}"></td>
 					<td th:text="${prestamo.fechaCreacion}"></td>
 					<td th:text="${prestamo.fechaExpiracion}"></td>

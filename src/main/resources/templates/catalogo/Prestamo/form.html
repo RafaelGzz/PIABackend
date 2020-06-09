@@ -2,23 +2,24 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Prestamo</title>
 </head>
 <body>
 
 <form th:action="@{/prestamo/guardar}" method="post" th:object="${prestamo}">
-
-<div> 
-			<label for="cliente">prestamo </label>
+	<input th:field="*{idPrestamo}" type="hidden">
+	<input th:field="*{abonoTotal}" type="hidden">
+	<input th:field="*{pagado}" type="hidden">
+		<div> 
+			<label for="idCliente">ID Cliente</label>
 			<div> 
-				<input type="text" id="cliente" th:field="*{cliente}" >
+				<input type="text" id="idCliente" name="idCliente">
 			</div>
-			<div th:if="${#fields.hasErrors('cliente')}" th:errors="*{cliente}"> </div>
 		</div>
 		
 		<br>
 		<div> 
-			<label for="monto">monto</label>
+			<label for="monto">Monto</label>
 			<div> 
 				<input type="text" id="monto" th:field="*{monto}" >
 			</div>
@@ -29,7 +30,7 @@
 
 
 		<div> 
-			<label for="fechaCreacion">fecha de creacion </label>
+			<label for="fechaCreacion">Fecha de Creacion </label>
 			<div> 
 				<input type="text" id="fechaCreacion" th:field="*{fechaCreacion}" >
 			</div>
@@ -38,10 +39,8 @@
 		
 		<br>
 		
-		
-		
 		<div> 
-			<label for="fechaExpiracion">fecha de expiracion </label>
+			<label for="fechaExpiracion">Fecha de Expiracion </label>
 			<div> 
 				<input type="text" id="fechaExpiracion" th:field="*{fechaExpiracion}" >
 			</div>

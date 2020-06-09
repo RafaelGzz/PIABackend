@@ -47,10 +47,8 @@ public class ClienteController {
 			return "catalogo/cliente/form";
 		}
 		clienteDao.insert(cliente);
-		sesion.setComplete();
 		return "redirect:/cliente";
 	}
-
 	
 	@GetMapping({ "/form/{id}" })
 	public String editar(@PathVariable Integer id, Model model) {
