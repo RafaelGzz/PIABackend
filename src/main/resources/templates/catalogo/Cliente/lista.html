@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="container">
+		<h1 class="text-success" th:text="${titulo}"></h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Usuario</th>
+					<th>Password</th>
+					<th>Nombre</th>
+					<th>Correo</th>
+					<th>Telefono</th>
+					<th>Direccion</th>
+					<th>Monto</th>
+				    <th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cliente: ${clientes}">
+				<td th:text="${cliente.idCliente}"></td>
+					<td th:text="${cliente.user}"></td>
+					<td th:text="${cliente.password}"></td>
+					<td th:text="${cliente.nombreCompleto}"></td>
+					<td th:text="${cliente.correo}"></td>
+					<td th:text="${cliente.telefono}"></td>
+					<td th:text="${cliente.direccion}"></td>
+					<td th:text="${cliente.monto}"></td>
+					<td><a th:href="@{/cliente/form/} + ${cliente.idCliente}">Editar</a></td>
+					<td><a th:href="@{/cliente/eliminar/} + ${cliente.idCliente}">Eliminar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

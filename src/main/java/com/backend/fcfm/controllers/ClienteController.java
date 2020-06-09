@@ -25,9 +25,9 @@ public class ClienteController {
 	private ClienteDao clienteDao;
 
 	@GetMapping({ "", "/" })
-	public String peliculas(Model model) {
+	public String Clientes(Model model) {
 		model.addAttribute("titulo", "Cliente");
-		// model.addAttribute("Cliente",ClienteDao.findAll());
+	    model.addAttribute("clientes",clienteDao.findAll());
 
 		return "catalogo/cliente/lista";
 	}
@@ -42,19 +42,30 @@ public class ClienteController {
 
 	@PostMapping({ "/guardar" })
 	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus sesion) {
-
+		if (result.hasErrors()) {
+			model.addAttribute("titulo", "Cliente");
+			return "catalogo/cliente/form";
+		}
+		clienteDao.insert(cliente);
+		sesion.setComplete();
 		return "redirect:/cliente";
 	}
 
+	
 	@GetMapping({ "/form/{id}" })
-	public String editar(@PathVariable Long id, Model model) {
-
+	public String editar(@PathVariable Integer id, Model model) {
+		model.addAttribute("titulo", "Alumno");
+		Cliente editar = clienteDao.find(id);
+		model.addAttribute("cliente", editar);
 		return "catalogo/cliente/form";
+		
 	}
 
 	@GetMapping({ "/eliminar/{id}" })
-	public String eliminar(@PathVariable Long id, Model model) {
-
+	public String eliminar(@PathVariable Integer id, Model model) {
+		if (id != null && id > 0) {
+			clienteDao.delete(id);
+		}
 		return "redirect:/cliente";
 	}
 

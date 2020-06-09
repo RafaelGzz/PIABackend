@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form th:action="@{/prestamo/guardar}" method="post" th:object="${prestamo}">
+
+<div> 
+			<label for="cliente">prestamo </label>
+			<div> 
+				<input type="text" id="cliente" th:field="*{cliente}" >
+			</div>
+			<div th:if="${#fields.hasErrors('cliente')}" th:errors="*{cliente}"> </div>
+		</div>
+		
+		<br>
+		<div> 
+			<label for="monto">monto</label>
+			<div> 
+				<input type="text" id="monto" th:field="*{monto}" >
+			</div>
+			<div th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}"> </div>
+		</div>
+		
+		<br>
+
+
+		<div> 
+			<label for="fechaCreacion">fecha de creacion </label>
+			<div> 
+				<input type="text" id="fechaCreacion" th:field="*{fechaCreacion}" >
+			</div>
+			<div th:if="${#fields.hasErrors('fechaCreacion')}" th:errors="*{fechaCreacion}"> </div>
+		</div>
+		
+		<br>
+		
+		
+		
+		<div> 
+			<label for="fechaExpiracion">fecha de expiracion </label>
+			<div> 
+				<input type="text" id="fechaExpiracion" th:field="*{fechaExpiracion}" >
+			</div>
+			<div th:if="${#fields.hasErrors('fechaExpiracion')}" th:errors="*{fechaExpiracion}"> </div>
+		</div>
+		
+		<br>
+		
+		<div> 
+			<label for="tipoPrestamo">Tipo de Prestamo </label>
+			<div> 
+				<input type="text" id="tipoPrestamo" th:field="*{tipoPrestamo}" >
+			</div>
+			  <div th:if="${#fields.hasErrors('tipoPrestamo')}" th:errors="*{tipoPrestamo}"> </div>	
+		</div>
+		
+		<br>
+		
+		
+		
+		<div> 
+			<div> 
+				<input type="submit" id="name" value="Enviar" >
+			</div>
+		</div>
+	</form>
+
+</body>
+</html>

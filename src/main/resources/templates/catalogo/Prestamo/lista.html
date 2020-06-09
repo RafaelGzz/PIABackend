@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div class="container">
+		<h1 class="text-success" th:text="${titulo}"></h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>ID Cliente</th>
+					<th>Monto</th>
+					<th>Creacion</th>
+					<th>Expiracion</th>
+					<th>Tipo</th>
+				    <th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="prestamo: ${prestamos}">
+					<td th:text="${prestamo.idPrestamo}"></td>
+					<td th:text="${prestamo.cliente}"></td>
+					<td th:text="${prestamo.monto}"></td>
+					<td th:text="${prestamo.fechaCreacion}"></td>
+					<td th:text="${prestamo.fechaExpiracion}"></td>
+					<td th:text="${prestamo.tipoPrestamo}"></td>
+					<td><a th:href="@{/prestamo/form/} + ${prestamo.idPrestamo}">Editar</a></td>
+					<td><a th:href="@{/prestamo/eliminar/} + ${prestamo.idPrestamo}">Eliminar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

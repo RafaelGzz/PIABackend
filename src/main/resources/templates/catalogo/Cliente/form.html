@@ -6,7 +6,28 @@
 </head>
 <body>
 
-<form th:action="@{/cliente}" method="get" th:object="${cliente}">
+<form th:action="@{/cliente/guardar}" method="post" th:object="${cliente}">
+<input th:field="*{idCliente}" type="hidden">
+<div> 
+			<label for="user">user </label>
+			<div> 
+				<input type="text" id="user" th:field="*{user}" >
+			</div>
+			<div th:if="${#fields.hasErrors('user')}" th:errors="*{user}"> </div>
+		</div>
+		
+		<br>
+		<div> 
+			<label for="password">password</label>
+			<div> 
+				<input type="text" id="password" th:field="*{password}" >
+			</div>
+			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> </div>
+		</div>
+		
+		<br>
+
+
 		<div> 
 			<label for="nombreCompleto">Nombre Completo </label>
 			<div> 

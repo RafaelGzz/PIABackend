@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.fcfm.entitys.Prestamo;
 
@@ -15,24 +16,35 @@ public class PrestamoDaoImp implements PrestamoDao {
 
 	@Autowired
 	private EntityManager en;
-
+    
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
 	@Override
 	public List<Prestamo> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Prestamo> result = en.createQuery("from Prestamo").getResultList();
+		return result;
 	}
-
+    
+	@Transactional
 	@Override
 	public Prestamo find(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Prestamo result = en.find(Prestamo.class, id);
+		return result;
 	}
-
+    
+	@Transactional
 	@Override
 	public void insert(Prestamo nuevo) {
-		en.persist(nuevo);
+		if(nuevo.getIdPrestamo() != null && nuevo.getIdPrestamo() > 0) {
+			en.merge(nuevo);
+		}else {
+			en.persist(nuevo);
+		}
+		en.flush();
+
 	}
 
+	@Transactional
 	@Override
 	public void update(Prestamo nuevo) {
 		Prestamo antes = find(nuevo.getIdPrestamo());
@@ -40,10 +52,12 @@ public class PrestamoDaoImp implements PrestamoDao {
 		en.flush();
 
 	}
-
+    
+	@Transactional
 	@Override
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
+		Prestamo entity = find(id);
+		en.remove(entity);
 
 	}
 
