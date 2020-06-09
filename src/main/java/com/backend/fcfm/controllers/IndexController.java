@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.backend.fcfm.entitys.Cliente;
 import com.backend.fcfm.models.dao.ClienteDao;
 
 @Controller
-@SessionAttributes("usuario")
+@SessionAttributes("user")
 public class IndexController {
 	
 	@Autowired
@@ -28,7 +29,7 @@ public class IndexController {
 	}
 
 	@PostMapping({ "/login/ingresar" })
-	public String ingresar(@RequestParam("user") String user, @RequestParam("password") String password, Model model) {
+	public String ingresar(@RequestParam("user") String user, @RequestParam("password") String password, Model model, SessionStatus sesion) {
 		if(user == null || user == "" || password == null || password == "") {
 			model.addAttribute("user", user);
 			model.addAttribute("password", password);
@@ -36,9 +37,10 @@ public class IndexController {
 			return "login";
 		}
 		
-		Cliente cliente = clienteDao.login(user, password);
+		Cliente cliente = clienteDao.login(user.toUpperCase(), password);
 		if(cliente == null) {
 			model.addAttribute("error", "Cliente no existe");
+			sesion.setComplete();
 			return "login";
 		}
 

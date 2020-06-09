@@ -1,4 +1,5 @@
 package com.backend.fcfm.entitys;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,15 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import com.backend.fcfm.validators.pagado;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.backend.fcfm.validators.pagado;
 
 @Entity
 @Table(name = "prestamo")
@@ -25,9 +26,9 @@ public class Prestamo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idPrestamo;
 
-	@OneToOne
-	@JoinColumn(name = "id_cliente")
-	private Cliente idCliente;
+	@ManyToOne
+	@JoinColumn(name = "id_cliente", referencedColumnName = "idCliente")
+	private Cliente cliente;
 
 	@NotNull
 	private Long monto;
@@ -44,14 +45,14 @@ public class Prestamo {
 	@NotNull
 	private Date fechaExpiracion;
 
-	@NotEmpty
-	private String tipoPrestamo;
 	@NotNull
-	private int abonoTotal;
-	
+	private Integer tipoPrestamo;
+	@NotNull
+	private Long abonoTotal;
+
 	@NotNull
 	@pagado
-	private int pagado;
+	private Integer pagado;
 
 	public Integer getIdPrestamo() {
 		return idPrestamo;
@@ -61,12 +62,13 @@ public class Prestamo {
 		this.idPrestamo = idPrestamo;
 	}
 
-//	public Cliente getIdCliente() {
-//		return idCliente;
-//	}
-//	public void setIdCliente(Cliente idCliente) {
-//		this.idCliente = idCliente;
-//	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public Long getMonto() {
 		return monto;
@@ -92,19 +94,19 @@ public class Prestamo {
 		this.fechaExpiracion = fechaExpiracion;
 	}
 
-	public String getTipoPrestamo() {
+	public Integer getTipoPrestamo() {
 		return tipoPrestamo;
 	}
 
-	public void setTipoPrestamo(String tipoPrestamo) {
+	public void setTipoPrestamo(Integer tipoPrestamo) {
 		this.tipoPrestamo = tipoPrestamo;
 	}
 
-	public int getAbonoTotal() {
+	public Long getAbonoTotal() {
 		return abonoTotal;
 	}
 
-	public void setAbonoTotal(int abonoTotal) {
+	public void setAbonoTotal(Long abonoTotal) {
 		this.abonoTotal = abonoTotal;
 	}
 

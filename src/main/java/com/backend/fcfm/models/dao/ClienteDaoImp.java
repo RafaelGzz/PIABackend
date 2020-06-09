@@ -22,7 +22,7 @@ public class ClienteDaoImp implements ClienteDao {
 	}
 
 	@Override
-	public Cliente find(Long id) {
+	public Cliente find(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,7 +40,7 @@ public class ClienteDaoImp implements ClienteDao {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 
 	}

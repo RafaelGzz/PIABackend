@@ -10,7 +10,7 @@
 		<div> 
 			<label for="nombreCompleto">Nombre Completo </label>
 			<div> 
-				<input type="text" id="name" th:field="*{nombreCompleto}" >
+				<input type="text" id="nombreCompleto" th:field="*{nombreCompleto}" >
 			</div>
 			<div th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}"> </div>
 		</div>
@@ -20,7 +20,7 @@
 		<div> 
 			<label for="correo">CorreoElectronico </label>
 			<div> 
-				<input type="text" id="name" th:field="*{correo}" >
+				<input type="text" id="correo" th:field="*{correo}" >
 			</div>
 			  <div th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"> </div>	
 		</div>
@@ -30,33 +30,30 @@
 		<div> 
 			<label for="telefono">Telefono </label>
 			<div> 
-				<input type="text" id="name" th:field="*{telefono}" >
+				<input type="text" id="telefono" th:field="*{telefono}" >
 			</div>
-			   <div th:if="${#fields.hasErrors('age')}" th:errors="*{telefono}"> </div>
+			   <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"> </div>
 		</div>
 		
 		<br>
 		
 		<div> 
-			<label for="direccion">Dirección </label>
+			<label for="direccion">Direccion </label>
 			<div> 
-				<input type="text" id="name" th:field="*{direccion}" >
+				<input type="text" id="direccion" th:field="*{direccion}" >
 			</div>
 			<div th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"> </div>
 		</div>
 <br>
 
 	<div> 
-			<label for="monto">Dirección </label>
+			<label for="monto">Monto </label>
 			<div> 
-				<input type="text" id="name" th:field="*{monto}" >
+				<input type="text" id="monto" th:field="*{monto}" >
 			</div>
 			<div th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}"> </div>
 		</div>
 		
-		
-		
-
 		<div> 
 			<div> 
 				<input type="submit" id="name" value="Enviar" >

@@ -1,10 +1,13 @@
 package com.backend.fcfm.entitys;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -15,7 +18,7 @@ public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idCliente;
+	private Integer idCliente;
 
 	@NotEmpty
 	@Column(unique = true)
@@ -38,7 +41,10 @@ public class Cliente {
 	private String direccion;
 
 	@NotNull
-	private int monto;
+	private Long monto;
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Prestamo> prestamos;
 
 	public String getUser() {
 		return user;
@@ -96,11 +102,11 @@ public class Cliente {
 		this.direccion = direccion;
 	}
 
-	public int getMonto() {
+	public Long getMonto() {
 		return monto;
 	}
 
-	public void setMonto(int monto) {
+	public void setMonto(Long monto) {
 		this.monto = monto;
 	}
 

@@ -7,9 +7,9 @@ import com.backend.fcfm.entitys.Cliente;
 
 public interface ClienteDao {
 	List<Cliente> findAll();
-	Cliente find(Long id);
+	Cliente find(Integer id);
 	void insert(Cliente nuevo);
 	void update(Cliente nuevo);
-	void delete(Long id);
+	void delete(Integer id);
 	Cliente login(String user, String password);
 }

@@ -2,6 +2,7 @@ package com.backend.fcfm.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.backend.fcfm.entitys.Cliente;
+import com.backend.fcfm.models.dao.ClienteDao;
 
 @Controller
 @RequestMapping(path = "/cliente")
 @SessionAttributes("cliente")
 public class ClienteController {
 
-	// @Autowired
-	// private ClienteDao clienteDao;
+	@Autowired
+	private ClienteDao clienteDao;
 
 	@GetMapping({ "", "/" })
 	public String peliculas(Model model) {
@@ -32,12 +34,14 @@ public class ClienteController {
 
 	@GetMapping({ "/form" })
 	public String form(Model model) {
-
+		Cliente cliente = new Cliente();
+		cliente.setTelefono(0l);
+		model.addAttribute("cliente", cliente);
 		return "catalogo/cliente/form";
 	}
 
 	@PostMapping({ "/guardar" })
-	public String guardar(@Valid Cliente peliculas, BindingResult result, Model model, SessionStatus sesion) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus sesion) {
 
 		return "redirect:/cliente";
 	}
