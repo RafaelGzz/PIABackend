@@ -13,7 +13,7 @@ import com.backend.fcfm.entitys.Cliente;
 import com.backend.fcfm.models.dao.ClienteDao;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes("cliente")
 public class IndexController {
 	
 	@Autowired
@@ -21,6 +21,9 @@ public class IndexController {
 
 	@GetMapping({ "/", "/login" })
 	public String login(Model model) {
+		if(model.getAttribute("cliente") != null) {
+			return "redirect:/index";
+		}
 		String user = new String();
 		String password = new String();
 		model.addAttribute("user", user);
@@ -38,12 +41,22 @@ public class IndexController {
 		}
 		
 		Cliente cliente = clienteDao.login(user.toUpperCase(), password);
+		model.addAttribute("cliente", cliente);
 		if(cliente == null) {
 			model.addAttribute("error", "Cliente no existe");
 			sesion.setComplete();
 			return "login";
 		}
 
+		return "redirect:/index";
+	}
+	
+	@GetMapping({"/index"})
+	public String index(Model model) {
+		
+		if(model.getAttribute("cliente") == null) {
+			return "redirect:/login";
+		}
 		return "index";
 	}
 
