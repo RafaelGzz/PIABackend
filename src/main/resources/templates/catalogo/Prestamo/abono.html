@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Prestamo</title>
+</head>
+<body>
+
+	<form th:action="@{/prestamo/abonar}" method="post"
+		th:object="${prestamo}">
+
+		<input th:field="*{idPrestamo}" type="hidden">
+
+		<div>
+			<label for="cliente">ID Cliente</label>
+			<div>
+				<input type="text" id="idCliente" th:field="*{cliente.idCliente}"
+					disabled>
+			</div>
+		</div>
+
+		<div>
+			<label for="abonoTotal">Abono Total</label>
+			<div>
+				<input th:field="*{abonoTotal}" type="text" disabled>
+			</div>
+		</div>
+
+		<div>
+			<label for="pagado">Pagado</label>
+			<div>
+				<input th:field="*{pagado}" type="text" disabled>
+			</div>
+		</div>
+
+		<div>
+			<label for="monto">Monto</label>
+			<div>
+				<input type="text" id="monto" th:field="*{monto}" disabled>
+			</div>
+		</div>
+
+		<input type="hidden" id="fechaCreacion" th:field="*{fechaCreacion}">
+		<input type="hidden" id="fechaExpiracion"
+			th:field="*{fechaExpiracion}">
+
+
+		<div>
+			<label for="tipoPrestamo">Tipo de Prestamo</label>
+			<div>
+				<input type="text" id="tipoPrestamo" th:field="*{tipoPrestamo}"
+					disabled>
+			</div>
+		</div>
+
+		<div>
+			<label for="cantidad">Cantidad a abonar</label>
+			<div>
+				<input type="text" id="cantidad" name="cantidad">
+			</div>
+			<div th:if="${errores != null && errores.containsKey('cantidad')}"
+				th:text="${errores.get('cantidad')}"></div>
+		</div>
+
+		<br>
+
+		<div>
+			<div>
+				<input type="submit" id="name" value="Enviar">
+			</div>
+		</div>
+	</form>
+
+</body>
+</html>

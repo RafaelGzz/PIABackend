@@ -27,7 +27,7 @@ public class ClienteController {
 	@GetMapping({ "", "/" })
 	public String Clientes(Model model) {
 		model.addAttribute("titulo", "Cliente");
-	    model.addAttribute("clientes",clienteDao.findAll());
+	    model.addAttribute("clientes",clienteDao.findAll().remove(1));
 
 		return "catalogo/cliente/lista";
 	}

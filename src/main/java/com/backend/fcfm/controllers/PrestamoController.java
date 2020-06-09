@@ -1,5 +1,8 @@
 package com.backend.fcfm.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.backend.fcfm.entitys.Cliente;
 import com.backend.fcfm.entitys.Prestamo;
@@ -48,34 +50,42 @@ public class PrestamoController {
 
 	@PostMapping({ "/guardar" })
 	public String guardar(@RequestParam(name = "idCliente") Integer idCliente, @Valid Prestamo prestamo,
-			BindingResult result, Model model, SessionStatus sesion) {
-		
+			BindingResult result, Model model) {
+
 		prestamo.setCliente(clienteDao.find(idCliente));
-		System.out.print(idCliente);
-		
+
 		if (result.hasErrors() || prestamo.getCliente() == null) {
 			model.addAttribute("titulo", "Prestamos");
 			return "catalogo/prestamo/form";
 		}
-		
+
 		prestamoDao.insert(prestamo);
 		return "redirect:/prestamo";
 	}
 
-	@GetMapping({ "/form/{id}" })
-	public String editar(@PathVariable Integer id, Model model) {
-		model.addAttribute("titulo", "Alumno");
-		Prestamo editar = prestamoDao.find(id);
-		model.addAttribute("prestamo", editar);
-		return "catalogo/prestamo/form";
+	@PostMapping({ "/abonar" })
+	public String abonar(@RequestParam(name = "cantidad") Long cantidad, @Valid Prestamo prestamo, Model model) {
+		Long total = prestamo.getAbonoTotal() + cantidad;
+		if (total > prestamo.getMonto()) {
+			Map<String, String> errores = new HashMap<>();
+			errores.put("cantidad", "Cantidad excesiva");
+			model.addAttribute("errores", errores);
+			return "catalogo/prestamo/abono/" + prestamo.getIdPrestamo();
+		} else if (total == prestamo.getMonto()) {
+			prestamo.setPagado(1);
+		}
+		prestamo.setAbonoTotal(total);
+		prestamoDao.update(prestamo);
+		return "redirect:/prestamo";
 	}
 
-	@GetMapping({ "/eliminar/{id}" })
-	public String eliminar(@PathVariable Integer id, Model model) {
-		if (id != null && id > 0) {
-			prestamoDao.delete(id);
-		}
-		return "redirect:/prestamo";
+	@GetMapping({ "/abono/{id}" })
+	public String editar(@PathVariable Integer id, Model model) {
+		Map<String, String> errores = new HashMap<>();;
+		model.addAttribute("errores", errores);
+		Prestamo editar = prestamoDao.find(id);
+		model.addAttribute("prestamo", editar);
+		return "catalogo/prestamo/abono";
 	}
 
 }

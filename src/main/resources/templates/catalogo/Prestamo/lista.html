@@ -15,11 +15,11 @@
 					<th>ID</th>
 					<th>ID Cliente</th>
 					<th>Monto</th>
+					<th>Abonado</th>
+					<th>Tipo</th>
 					<th>Creacion</th>
 					<th>Expiracion</th>
-					<th>Tipo</th>
-				    <th>Editar</th>
-					<th>Eliminar</th>
+				    <th>Abonar</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,11 +27,11 @@
 					<td th:text="${prestamo.idPrestamo}"></td>
 					<td th:text="${prestamo.cliente.idCliente}"></td>
 					<td th:text="${prestamo.monto}"></td>
+					<td th:text="${prestamo.abonoTotal}"></td>
+					<td th:text="${prestamo.tipoPrestamo}"></td>
 					<td th:text="${prestamo.fechaCreacion}"></td>
 					<td th:text="${prestamo.fechaExpiracion}"></td>
-					<td th:text="${prestamo.tipoPrestamo}"></td>
-					<td><a th:href="@{/prestamo/form/} + ${prestamo.idPrestamo}">Editar</a></td>
-					<td><a th:href="@{/prestamo/eliminar/} + ${prestamo.idPrestamo}">Eliminar</a></td>
+					<td><a th:href="@{/prestamo/abono/} + ${prestamo.idPrestamo}">Abonar</a></td>
 				</tr>
 			</tbody>
 		</table>
