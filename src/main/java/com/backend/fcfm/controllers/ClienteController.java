@@ -28,7 +28,6 @@ public class ClienteController {
 	public String Clientes(Model model) {
 		model.addAttribute("titulo", "Cliente");
 	    model.addAttribute("clientes",clienteDao.findAll().remove(1));
-
 		return "catalogo/cliente/lista";
 	}
 

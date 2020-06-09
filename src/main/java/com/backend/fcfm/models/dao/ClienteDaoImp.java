@@ -1,8 +1,8 @@
 package com.backend.fcfm.models.dao;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,32 @@ public class ClienteDaoImp implements ClienteDao {
 		}catch(Exception e) {
 			cliente = null;
 		}
+		return cliente; 
+	}
+	@Override
+	public Cliente mayCliente() {
+		Cliente cliente;
+		try{
+			cliente = (Cliente) en.createQuery("SELECT cliente FROM Cliente cliente where cliente.monto = (SELECT MAX(c.monto) FROM Cliente c) ").getSingleResult();
+		}catch(Exception e) {
+			System.out.print(e);
+			cliente = null;
+		}
+		
 		return cliente;
 	}
+	
+	@Override
+	public Long totalMoney() {
+		Long suma;
+		try{
+			Query q = en.createQuery("SELECT SUM(cliente.monto) FROM Cliente cliente");
+			suma = (Long) q.getSingleResult();
+		}catch(Exception e) {
+			suma = 0l;
+		}
+		return suma;
+	}
+	
 
 }

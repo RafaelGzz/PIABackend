@@ -1,2 +1,2 @@
 insert into cliente(id_cliente, user, password, nombre_completo, correo, telefono, direccion, monto) values (0, 'ADMIN', 'admin', 'Administrador', 'admin@admin.com', 0, 'Nowere', 0);
-insert into cliente(id_cliente, user, password, nombre_completo, correo, telefono, direccion, monto) values (1, 'RafaelGzz', '22778', 'Rafael González', 'ragl@gmail.com', 810123123, 'Mi casa', 0);
+insert into cliente(id_cliente, user, password, nombre_completo, correo, telefono, direccion, monto) values (1, 'RafaelGzz', '22778', 'Rafael González', 'ragl@gmail.com', 810123123, 'Mi casa', 500);
