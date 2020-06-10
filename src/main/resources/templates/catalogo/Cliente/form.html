@@ -1,20 +1,46 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
 
-	<form th:action="@{/cliente/guardar}" method="post"
-		th:object="${cliente}">
+<head>
+	<meta charset="ISO-8859-1">
+	<title th:text="${titulo}">Insert title here</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<header>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #003c80; height: 4rem">
+		<a class="navbar-brand" href="#">Kemonito Banco</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+			aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<br>
+</header>
+
+<body>
+	<form th:action="@{/cliente/guardar}" method="post" th:object="${cliente}">
 		<input th:field="*{idCliente}" type="hidden">
 		<div>
 			<label for="user">user </label>
 			<div>
 				<input type="text" id="user" th:field="*{user}">
 			</div>
-			<div th:if="${#fields.hasErrors('user')}" th:errors="*{user}">
+			<div class="form-text text-danger" th:if="${#fields.hasErrors('user')}" th:errors="*{user}">
 			</div>
 		</div>
 
@@ -24,7 +50,7 @@
 			<div>
 				<input type="text" id="password" th:field="*{password}">
 			</div>
-			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+			<div  class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
 			</div>
 		</div>
 
@@ -36,8 +62,7 @@
 			<div>
 				<input type="text" id="nombreCompleto" th:field="*{nombreCompleto}">
 			</div>
-			<div th:if="${#fields.hasErrors('nombreCompleto')}"
-				th:errors="*{nombreCompleto}"></div>
+			<div class="form-text text-danger" th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}"></div>
 		</div>
 
 		<br>
@@ -47,7 +72,7 @@
 			<div>
 				<input type="text" id="correo" th:field="*{correo}">
 			</div>
-			<div th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">
+			<div class="form-text text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">
 			</div>
 		</div>
 
@@ -58,7 +83,7 @@
 			<div>
 				<input type="text" id="telefono" th:field="*{telefono}">
 			</div>
-			<div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">
+			<div  class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">
 			</div>
 		</div>
 
@@ -69,7 +94,7 @@
 			<div>
 				<input type="text" id="direccion" th:field="*{direccion}">
 			</div>
-			<div th:if="${#fields.hasErrors('direccion')}"
+			<div  class="form-text text-danger" th:if="${#fields.hasErrors('direccion')}"
 				th:errors="*{direccion}"></div>
 		</div>
 		<br>
@@ -79,7 +104,7 @@
 			<div>
 				<input type="text" id="monto" th:field="*{monto}">
 			</div>
-			<div th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}">
+			<div  class="form-text text-danger"  th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}">
 			</div>
 		</div>
 
@@ -90,5 +115,16 @@
 		</div>
 	</form>
 
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+	crossorigin="anonymous"></script>
+
 </body>
+
 </html>
