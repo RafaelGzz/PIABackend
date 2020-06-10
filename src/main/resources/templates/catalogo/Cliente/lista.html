@@ -9,6 +9,26 @@
 	<div class="container">
 		<h1 class="text-success" th:text="${titulo}"></h1>
 
+		<form th:action="@{/cliente}" method="get">
+			<input type="submit" value="Todos">
+		</form>
+
+		<form th:action="@{/cliente/buscarNombre}" method="get">
+			<label>Nombre:</label>
+			<div>
+				<input type="text" id="nombre" name="nombre">
+			</div>
+			<input type="submit" value="Buscar por nombre">
+		</form>
+
+		<form th:action="@{/cliente/buscarId}" method="get">
+			<label>ID:</label>
+			<div>
+				<input type="text" id="id" name="id">
+			</div>
+			<input type="submit" value="Buscar por id">
+		</form>
+
 		<table class="table">
 			<thead>
 				<tr>
@@ -20,13 +40,14 @@
 					<th>Telefono</th>
 					<th>Direccion</th>
 					<th>Monto</th>
-				    <th>Editar</th>
+					<th>Editar</th>
 					<th>Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
+				<div th:if="${#lists.size(clientes) != 0}">
 				<tr th:each="cliente: ${clientes}">
-				<td th:text="${cliente.idCliente}"></td>
+					<td th:text="${cliente.idCliente}"></td>
 					<td th:text="${cliente.user}"></td>
 					<td th:text="${cliente.password}"></td>
 					<td th:text="${cliente.nombreCompleto}"></td>
@@ -37,6 +58,12 @@
 					<td><a th:href="@{/cliente/form/} + ${cliente.idCliente}">Editar</a></td>
 					<td><a th:href="@{/cliente/eliminar/} + ${cliente.idCliente}">Eliminar</a></td>
 				</tr>
+				</div>
+				<div th:unless="${#lists.size(clientes) != 0}">
+					<tr>
+						<td colspan="10">No se encontraron registros</td>
+					</tr>
+				</div>
 			</tbody>
 		</table>
 	</div>

@@ -6,5 +6,25 @@
 </head>
 <body>
 
+	<div th:if="${usuario.user == 'ADMIN'}">
+		<h1>Admin</h1>
+		<ul>
+			<li><a th:href="@{/cliente}">Clientes</a></li>
+			<li><a th:href="@{/prestamo}">Prestamos</a></li>
+			<li><a th:href="@{/dinero}">Dinero</a></li>
+		</ul>
+
+
+	</div>
+
+	<div th:unless="${usuario.user == 'ADMIN'}">
+		<h1>Cliente</h1>
+		<ul>
+			<li><a th:href="@{/cliente}">Clientes</a></li>
+			<li><a th:href="@{/prestamo}">Prestamos</a></li>
+			<li><a th:href="@{/dinero}">Dinero</a></li>
+		</ul>
+	</div>
+
 </body>
 </html>

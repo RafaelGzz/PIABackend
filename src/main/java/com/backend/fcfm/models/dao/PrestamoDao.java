@@ -11,6 +11,6 @@ public interface PrestamoDao {
 	void insert(Prestamo nuevo);
 	void update(Prestamo nuevo);
 	void delete(Integer id);
-	
-
+	List<Prestamo> findFecha(String fechaInicio, String fechaFin);
+	List<Prestamo> findPorPagado(Integer opcion);
 }

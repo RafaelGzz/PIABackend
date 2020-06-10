@@ -59,5 +59,11 @@ public class IndexController {
 		}
 		return "index";
 	}
+	
+	@GetMapping({"/logOut"})
+	public String logOut(Model model, SessionStatus sesion) {
+		sesion.setComplete();
+		return "redirect:/login";
+	}
 
 }

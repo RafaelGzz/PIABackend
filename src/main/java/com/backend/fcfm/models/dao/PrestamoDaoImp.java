@@ -3,6 +3,7 @@ package com.backend.fcfm.models.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,22 @@ public class PrestamoDaoImp implements PrestamoDao {
 	@Override
 	public Prestamo find(Integer id) {
 		Prestamo result = en.find(Prestamo.class, id);
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Prestamo> findFecha(String fechaInicio, String fechaFin) {
+		List<Prestamo> result = en.createQuery("SELECT prestamo FROM Prestamo prestamo where prestamo.fechaCreacion between '"+fechaInicio+"' and '"+fechaFin+"'").getResultList();
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Prestamo> findPorPagado(Integer opcion) {
+		Query q = en.createQuery("SELECT prestamo from Prestamo prestamo where prestamo.pagado = :pagado");
+		q.setParameter("pagado", opcion);
+		List<Prestamo> result = q.getResultList();
 		return result;
 	}
     

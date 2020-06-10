@@ -6,78 +6,86 @@
 </head>
 <body>
 
-<form th:action="@{/cliente/guardar}" method="post" th:object="${cliente}">
-<input th:field="*{idCliente}" type="hidden">
-<div> 
+	<form th:action="@{/cliente/guardar}" method="post"
+		th:object="${cliente}">
+		<input th:field="*{idCliente}" type="hidden">
+		<div>
 			<label for="user">user </label>
-			<div> 
-				<input type="text" id="user" th:field="*{user}" >
+			<div>
+				<input type="text" id="user" th:field="*{user}">
 			</div>
-			<div th:if="${#fields.hasErrors('user')}" th:errors="*{user}"> </div>
+			<div th:if="${#fields.hasErrors('user')}" th:errors="*{user}">
+			</div>
 		</div>
-		
+
 		<br>
-		<div> 
+		<div>
 			<label for="password">password</label>
-			<div> 
-				<input type="text" id="password" th:field="*{password}" >
+			<div>
+				<input type="text" id="password" th:field="*{password}">
 			</div>
-			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> </div>
+			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+			</div>
 		</div>
-		
+
 		<br>
 
 
-		<div> 
+		<div>
 			<label for="nombreCompleto">Nombre Completo </label>
-			<div> 
-				<input type="text" id="nombreCompleto" th:field="*{nombreCompleto}" >
+			<div>
+				<input type="text" id="nombreCompleto" th:field="*{nombreCompleto}">
 			</div>
-			<div th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}"> </div>
+			<div th:if="${#fields.hasErrors('nombreCompleto')}"
+				th:errors="*{nombreCompleto}"></div>
 		</div>
-		
-		<br>
-		
-		<div> 
-			<label for="correo">CorreoElectronico </label>
-			<div> 
-				<input type="text" id="correo" th:field="*{correo}" >
-			</div>
-			  <div th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"> </div>	
-		</div>
-		
-		<br>
-		
-		<div> 
-			<label for="telefono">Telefono </label>
-			<div> 
-				<input type="text" id="telefono" th:field="*{telefono}" >
-			</div>
-			   <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"> </div>
-		</div>
-		
-		<br>
-		
-		<div> 
-			<label for="direccion">Direccion </label>
-			<div> 
-				<input type="text" id="direccion" th:field="*{direccion}" >
-			</div>
-			<div th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"> </div>
-		</div>
-<br>
 
-	<div> 
-			<label for="monto">Monto </label>
-			<div> 
-				<input type="text" id="monto" th:field="*{monto}" >
+		<br>
+
+		<div>
+			<label for="correo">CorreoElectronico </label>
+			<div>
+				<input type="text" id="correo" th:field="*{correo}">
 			</div>
-			<div th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}"> </div>
+			<div th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">
+			</div>
 		</div>
-		
-		<div> 
-			<div> 
-				<input type="submit" id="name" value="Enviar" >
+
+		<br>
+
+		<div>
+			<label for="telefono">Telefono </label>
+			<div>
+				<input type="text" id="telefono" th:field="*{telefono}">
+			</div>
+			<div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">
+			</div>
+		</div>
+
+		<br>
+
+		<div>
+			<label for="direccion">Direccion </label>
+			<div>
+				<input type="text" id="direccion" th:field="*{direccion}">
+			</div>
+			<div th:if="${#fields.hasErrors('direccion')}"
+				th:errors="*{direccion}"></div>
+		</div>
+		<br>
+
+		<div>
+			<label for="monto">Monto </label>
+			<div>
+				<input type="text" id="monto" th:field="*{monto}">
+			</div>
+			<div th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}">
+			</div>
+		</div>
+
+		<div>
+			<div>
+				<input type="submit" id="name" value="Enviar">
 			</div>
 		</div>
 	</form>

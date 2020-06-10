@@ -1,6 +1,8 @@
 package com.backend.fcfm.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -23,7 +25,7 @@ import com.backend.fcfm.models.dao.PrestamoDao;
 
 @Controller
 @RequestMapping(path = "/prestamo")
-@SessionAttributes("prestamo")
+@SessionAttributes("usuario")
 public class PrestamoController {
 
 	@Autowired
@@ -34,13 +36,66 @@ public class PrestamoController {
 
 	@GetMapping({ "", "/" })
 	public String Prestamos(Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
 		model.addAttribute("titulo", "Prestamos");
 		model.addAttribute("prestamos", prestamoDao.findAll());
 		return "catalogo/prestamo/lista";
 	}
 
+	@GetMapping({ "/buscarId" })
+	public String buscarId(@RequestParam(name = "id") Integer id, Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
+		if (id != null && id >= 0) {
+			model.addAttribute("titulo", "Prestamos");
+			List<Prestamo> prestamos = new ArrayList<>();
+			Prestamo prestamo = prestamoDao.find(id);
+			if (prestamo != null) {
+				prestamos.add(prestamo);
+			}
+			model.addAttribute("prestamos", prestamos);
+			return "catalogo/prestamo/lista";
+		}
+		return "redirect:/prestamo";
+	}
+
+	@GetMapping({ "/buscarPagados/{opc}" })
+	public String buscarPagados(@PathVariable Integer opc, Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("titulo", "Prestamos");
+		List<Prestamo> prestamos = prestamoDao.findPorPagado(opc);
+		model.addAttribute("prestamos", prestamos);
+		return "catalogo/prestamo/lista";
+	}
+
+	@GetMapping({ "/buscarFecha" })
+	public String buscarFecha(@RequestParam(name = "fechaInicio") String fechaInicio,
+			@RequestParam(name = "fechaFin") String fechaFin, Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
+		if (fechaInicio != null && fechaInicio != "" && fechaFin != null && fechaFin != "") {
+			List<Prestamo> prestamos = prestamoDao.findFecha(fechaInicio, fechaFin);
+			model.addAttribute("prestamos", prestamos);
+			model.addAttribute("titulo", "Prestamos");
+			return "catalogo/prestamo/lista";
+		}
+		return "redirect:/prestamo";
+
+	}
+
 	@GetMapping({ "/form" })
 	public String form(Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
+		String mensaje = null;
+		model.addAttribute("mensaje", mensaje);
 		Prestamo prestamo = new Prestamo();
 		Cliente cliente = new Cliente();
 		prestamo.setCliente(cliente);
@@ -51,11 +106,24 @@ public class PrestamoController {
 	@PostMapping({ "/guardar" })
 	public String guardar(@RequestParam(name = "idCliente") Integer idCliente, @Valid Prestamo prestamo,
 			BindingResult result, Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
+		String mensaje = null;
+		if (idCliente != null && idCliente >= 0) {
+			prestamo.setCliente(clienteDao.find(idCliente));
+			if (prestamo.getCliente() == null) {
+				idCliente = null;
+				mensaje = "Cliente no existe";
+			}
+		} else {
+			idCliente = null;
+			mensaje = "Ingresa un id valido";
+		}
 
-		prestamo.setCliente(clienteDao.find(idCliente));
-
-		if (result.hasErrors() || prestamo.getCliente() == null) {
+		if (result.hasErrors() || prestamo.getCliente() == null || idCliente == null) {
 			model.addAttribute("titulo", "Prestamos");
+			model.addAttribute("mensaje", mensaje);
 			return "catalogo/prestamo/form";
 		}
 
@@ -65,6 +133,9 @@ public class PrestamoController {
 
 	@PostMapping({ "/abonar" })
 	public String abonar(@RequestParam(name = "cantidad") Long cantidad, @Valid Prestamo prestamo, Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
 		Long total = prestamo.getAbonoTotal() + cantidad;
 		if (total > prestamo.getMonto()) {
 			Map<String, String> errores = new HashMap<>();
@@ -81,7 +152,11 @@ public class PrestamoController {
 
 	@GetMapping({ "/abono/{id}" })
 	public String editar(@PathVariable Integer id, Model model) {
-		Map<String, String> errores = new HashMap<>();;
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
+		Map<String, String> errores = new HashMap<>();
+		;
 		model.addAttribute("errores", errores);
 		Prestamo editar = prestamoDao.find(id);
 		model.addAttribute("prestamo", editar);

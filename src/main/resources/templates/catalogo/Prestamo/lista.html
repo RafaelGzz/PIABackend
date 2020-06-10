@@ -8,24 +8,57 @@
 
 	<div class="container">
 		<h1 class="text-success" th:text="${titulo}"></h1>
+		
+		<form th:action="@{/prestamo}" method="get">
+			<input type="submit" value="Todos">
+		</form>
+
+		<form th:action="@{/prestamo/buscarId}" method="get">
+			<label>ID:</label>
+			<div>
+				<input type="text" id="id" name="id">
+			</div>
+			<input type="submit" value="Buscar por id">
+		</form>
+		
+		<form th:action="@{/prestamo/buscarFecha}" method="get">
+			<label>Fecha inicio:</label>
+			<div>
+				<input type="date" id="fechaInicio" name="fechaInicio">
+			</div>
+			<label>Fecha fin:</label>
+			<div>
+				<input type="date" id="fechaFin" name="fechaFin">
+			</div>
+			<input type="submit" value="Buscar por fecha">
+		</form>
+		
+		<form th:action="@{/prestamo/buscarPagados/0}" method="get">
+			<input type="submit" value="Activos">
+		</form>
+		
+		<form th:action="@{/prestamo/buscarPagados/1}" method="get">
+			<input type="submit" value="Pagados">
+		</form>
 
 		<table class="table">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>ID Cliente</th>
+					<th>Cliente</th>
 					<th>Monto</th>
 					<th>Abonado</th>
 					<th>Tipo</th>
 					<th>Creacion</th>
 					<th>Expiracion</th>
-				    <th>Abonar</th>
+					<th>Abonar</th>
 				</tr>
 			</thead>
 			<tbody>
+				<div th:if="${#lists.size(prestamos) != 0}">
 				<tr th:each="prestamo: ${prestamos}">
 					<td th:text="${prestamo.idPrestamo}"></td>
-					<td th:text="${prestamo.cliente.idCliente}"></td>
+					<td th:text="${prestamo.cliente.nombreCompleto}"></td>
 					<td th:text="${prestamo.monto}"></td>
 					<td th:text="${prestamo.abonoTotal}"></td>
 					<td th:text="${prestamo.tipoPrestamo}"></td>
@@ -33,6 +66,13 @@
 					<td th:text="${prestamo.fechaExpiracion}"></td>
 					<td><a th:href="@{/prestamo/abono/} + ${prestamo.idPrestamo}">Abonar</a></td>
 				</tr>
+				</div>
+				<div th:unless="${#lists.size(prestamos) != 0}">
+					<tr>
+						<td colspan="8">No se encontraron registros</td>
+					</tr>
+				</div>
+				
 			</tbody>
 		</table>
 	</div>

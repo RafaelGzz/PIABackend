@@ -25,6 +25,14 @@ public class ClienteDaoImp implements ClienteDao {
 		List<Cliente> result = en.createQuery("from Cliente").getResultList();
 		return result;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Cliente> findNombre(String nombreCompleto) {
+		List<Cliente> result = en.createQuery("SELECT cliente FROM Cliente cliente where upper(cliente.nombreCompleto) like upper('%"+nombreCompleto+"%') order by cliente.nombreCompleto").getResultList();
+		return result;
+	}
+	
 
 	@Transactional
 	@Override
@@ -99,6 +107,5 @@ public class ClienteDaoImp implements ClienteDao {
 		}
 		return suma;
 	}
-	
 
 }

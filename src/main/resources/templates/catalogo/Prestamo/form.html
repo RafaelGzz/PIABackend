@@ -14,6 +14,7 @@
 			<label for="idCliente">ID Cliente</label>
 			<div> 
 				<input type="text" id="idCliente" name="idCliente">
+				<div th:if="${mensaje}" th:text="${mensaje}"></div>
 			</div>
 		</div>
 		
@@ -52,7 +53,11 @@
 		<div> 
 			<label for="tipoPrestamo">Tipo de Prestamo </label>
 			<div> 
-				<input type="text" id="tipoPrestamo" th:field="*{tipoPrestamo}" >
+				<select id="tipoPrestamo" th:field="*{tipoPrestamo}">
+					<option th:value="1" >1 a 2 meses - 5%</option>
+					<option th:value="2" >2 a 6 meses - 10%</option>
+					<option th:value="3" >6 meses en adelante - 30%</option>
+				</select>
 			</div>
 			  <div th:if="${#fields.hasErrors('tipoPrestamo')}" th:errors="*{tipoPrestamo}"> </div>	
 		</div>
