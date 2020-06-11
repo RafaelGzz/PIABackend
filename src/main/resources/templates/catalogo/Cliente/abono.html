@@ -2,32 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="ISO-8859-1">
-<title th:text="${titulo}">Insert title here</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-	crossorigin="anonymous">
+	<meta charset="ISO-8859-1">
+	<title th:text="${titulo}">Insert title here</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 
 <header>
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top"
-		style="background-color: #003c80; height: 4rem">
-		<a class="navbar-brand" href="#">Kemonito Banco</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarCollapse" aria-controls="navbarCollapse"
-			aria-expanded="false" aria-label="Toggle navigation">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #003c80; height: 4rem">
+		<a class="navbar-brand font-weight-bold" th:href="@{/index}">Kemonito Banco</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+			aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">Home
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-				<li class="nav-item"><a class="nav-link disabled" href="#"
-					tabindex="-1" aria-disabled="true">Disabled</a></li>
+			<ul th:if="${usuario.user == 'Admin'}" class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<li><a th:href="@{/cliente}" style="color:white; margin-left: 1rem;">Clientes</a></li>
+					<li><a th:href="@{/prestamo}" style="color:white; margin-left: 1rem;">Prestamos</a></li>
+					<li><a th:href="@{/dinero}" style="color:white; margin-left: 1rem;">Dinero</a></li>
+					<li><a th:href="@{/cliente/informacion}" style="color:white; margin-left: 1rem;">Mi cuenta</a></li>
+				</li>
 			</ul>
+			<ul th:unless="${usuario.user == 'Admin'}" class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<li><a th:href="@{/cliente/informacion}" style="color:white; margin-left: 1rem;">Mi cuenta</a></li>
+					<li><a th:href="@{/prestamo}" style="color:white; margin-left: 1rem;">Mis Prestamos</a></li>
+					<li><a th:href="@{/cliente/abonarCuenta}" style="color:white; margin-left: 1rem;">Abonar / Retirar</a></li>
+				</li>
+			</ul>
+			<form th:action="@{/logOut}">
+				<button class="btn btn-danger my-2 my-lg-0" type="submit">Cerrar Sesion</button>
+			</form>
 		</div>
 	</nav>
 	<br>

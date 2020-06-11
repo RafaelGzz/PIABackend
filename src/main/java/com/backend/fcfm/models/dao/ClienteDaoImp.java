@@ -97,13 +97,13 @@ public class ClienteDaoImp implements ClienteDao {
 	}
 	
 	@Override
-	public Long totalMoney() {
-		Long suma;
+	public Float totalMoney() {
+		Float suma;
 		try{
 			Query q = en.createQuery("SELECT SUM(cliente.monto) FROM Cliente cliente");
-			suma = (Long) q.getSingleResult();
+			suma = (Float) q.getSingleResult();
 		}catch(Exception e) {
-			suma = 0l;
+			suma = 0f;
 		}
 		return suma;
 	}

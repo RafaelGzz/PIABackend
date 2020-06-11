@@ -2,6 +2,7 @@ package com.backend.fcfm.entitys;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +47,7 @@ public class Cliente {
 	@NotNull
 	private Float monto;
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Prestamo> prestamos;
 
 	public String getUser() {

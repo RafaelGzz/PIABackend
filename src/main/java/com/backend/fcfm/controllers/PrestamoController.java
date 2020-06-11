@@ -59,11 +59,7 @@ public class PrestamoController {
 		}
 		if (id != null && id >= 0) {
 			model.addAttribute("titulo", "Prestamos");
-			List<Prestamo> prestamos = new ArrayList<>();
-			Prestamo prestamo = prestamoDao.find(id);
-			if (prestamo != null) {
-				prestamos.add(prestamo);
-			}
+			List<Prestamo> prestamos = prestamoDao.findByClient(id);
 			model.addAttribute("prestamos", prestamos);
 			return "catalogo/prestamo/lista";
 		}
@@ -153,7 +149,7 @@ public class PrestamoController {
 	}
 
 	@PostMapping({ "/abonar" })
-	public String abonar(@RequestParam(name = "cantidad") Long cantidad, @Valid Prestamo prestamo, Model model) {
+	public String abonar(@RequestParam(name = "cantidad") Float cantidad, @Valid Prestamo prestamo, Model model) {
 		if (model.getAttribute("usuario") == null) {
 			return "redirect:/login";
 		}

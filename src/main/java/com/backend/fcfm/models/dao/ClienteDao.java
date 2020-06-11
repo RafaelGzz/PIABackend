@@ -13,7 +13,7 @@ public interface ClienteDao {
 	void delete(Integer id);
 	Cliente login(String user, String password);
 	Cliente mayCliente();
-	Long totalMoney();
+	Float totalMoney();
 }
 
 

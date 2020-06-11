@@ -110,7 +110,7 @@ public class ClienteController {
 		}
 		
 		clienteDao.insert(cliente);
-		if (usuario.getUser() == "Admin") {
+		if (usuario.getUser().equals("Admin")) {
 			return "redirect:/cliente";
 		} else {
 			model.addAttribute("usuario", cliente);

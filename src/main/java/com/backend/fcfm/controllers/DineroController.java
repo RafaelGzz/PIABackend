@@ -20,7 +20,7 @@ public class DineroController{
 		if(model.getAttribute("usuario") == null) {
 			return "redirect:/login";
 		}
-		Long sumaTotal;
+		Float sumaTotal;
 		Cliente cliente = new Cliente();
 		cliente = clienteDao.mayCliente();
 		System.out.println(cliente);
