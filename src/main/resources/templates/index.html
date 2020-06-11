@@ -10,15 +10,25 @@
 
 <header>
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #003c80; height: 4rem">
-		<a class="navbar-brand" th:href="@{index}">Kemonito Banco</a>
+		<a class="navbar-brand font-weight-bold" th:href="@{index}">Kemonito Banco</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
 			aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
-			<ul class="navbar-nav mr-auto">
+			<ul th:if="${usuario.user == 'Admin'}" class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="#">Link</a>
+					<li><a th:href="@{/cliente}" style="color:white; margin-left: 1rem;">Clientes</a></li>
+					<li><a th:href="@{/prestamo}" style="color:white; margin-left: 1rem;">Prestamos</a></li>
+					<li><a th:href="@{/dinero}" style="color:white; margin-left: 1rem;">Dinero</a></li>
+					<li><a th:href="@{/cliente/informacion}" style="color:white; margin-left: 1rem;">Mi cuenta</a></li>
+				</li>
+			</ul>
+			<ul th:unless="${usuario.user == 'Admin'}" class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<li><a th:href="@{/cliente/informacion}" style="color:white; margin-left: 1rem;">Mi cuenta</a></li>
+					<li><a th:href="@{/prestamo}" style="color:white; margin-left: 1rem;">Mis Prestamos</a></li>
+					<li><a th:href="@{/cliente/abonarCuenta}" style="color:white; margin-left: 1rem;">Abonar / Retirar</a></li>
 				</li>
 			</ul>
 			<form th:action="@{/logOut}">
@@ -33,47 +43,24 @@
 <body>
 	<div class="container">
 		<div id="bankCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 2rem">
-			<ol class="carousel-indicators">
-				<li data-target="#bankCarouselCaptions" data-slide-to="0" class="active"></li>
-				<li data-target="#bankCarouselCaptions" data-slide-to="1"></li>
-			</ol>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
 					<img src="../static/images/slide1.jpg" th:src="@{images/slide1.jpg}" class="d-block w-100">
 					<div class="carousel-caption d-none d-md-block rounded"
 						style="background-color: rgba(53, 53, 53, 0.400)">
-						<h5>La mejor atencion del mercado</h5>
+						<h4>La mejor atencion del mercado</h4>
 						<p>Siempre estamos para ti cuando lo necesitas</p>
 					</div>
 				</div>
 				<div class="carousel-item">
 					<img src="../static/images/slide2.jpg" th:src="@{images/slide2.jpg}" class="d-block w-100">
 					<div class="carousel-caption d-none d-md-block" style="background-color: rgba(53, 53, 53, 0.400)">
-						<h5>Un banco de primer nivel</h5>
+						<h4>Un banco de primer nivel</h4>
 						<p>Estamos preparados para brindarte los mejores prestamos</p>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- <div th:if="${usuario.user == 'ADMIN'}">
-			<h1>Admin</h1>
-			<ul>
-				<li><a th:href="@{/cliente}">Clientes</a></li>
-				<li><a th:href="@{/prestamo}">Prestamos</a></li>
-				<li><a th:href="@{/dinero}">Dinero</a></li>
-				<li><a th:href="@{/cliente/informacion}">Mi cuenta</a></li>
-			</ul>
-		</div>
-
-		<div th:unless="${usuario.user == 'ADMIN'}">
-			<h1>Cliente</h1>
-			<ul>
-				<li><a th:href="@{/cliente/informacion}">Mi cuenta</a></li>
-				<li><a th:href="@{/prestamo}">Mis prestamos</a></li>
-				<li><a th:href="@{/cliente/abonarCuenta}">Abonar / Retirar de mi dinero xd</a></li>
-			</ul>
-		</div> -->
 	</div>
 
 	<div class="container marketing" style="margin-top: 2rem;">
