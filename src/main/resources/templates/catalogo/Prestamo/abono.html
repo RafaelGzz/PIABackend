@@ -55,13 +55,26 @@
 							<label for="abonoTotal">Abono Total: $<span th:text="*{abonoTotal}"></span></label>		
 						</li>
 						<li class="list-group-item">
-							<label for="pagado">Pagado: $<span th:text="*{pagado}"></span></label>
+							<label for="pagado">Pagado: 
+							<span th:if="*{pagado} == 0">No</span>
+							<span th:if="*{pagado} == 1">Si</span>
+							</label>
 						</li>
 						<li class="list-group-item">
 							<label for="monto">Monto: $<span th:text="*{monto}"></span></label>
 						</li>
 						<li class="list-group-item">
-							<label for="tipoPrestamo">Tipo de Prestamo: <span th:text="*{tipoPrestamo}"></span></label>
+							<label for="monto">Fecha Creacion: <span th:text="*{fechaCreacion}"></span></label>
+						</li>
+						<li class="list-group-item">
+							<label for="monto">Fecha Expiracion: <span th:text="*{fechaExpiracion}"></span></label>
+						</li>
+						<li class="list-group-item">
+							<label for="tipoPrestamo">Tipo de Prestamo: 
+							<span th:if="*{tipoPrestamo} == 1">1 a 2 meses - 5%</span>
+							<span th:if="*{tipoPrestamo} == 2">3 a 6 meses - 10%</span>
+							<span th:if="*{tipoPrestamo} == 3">6 meses en adelante - 30%</span>
+							</label>
 						</li>
 					</ul>
 				</div>

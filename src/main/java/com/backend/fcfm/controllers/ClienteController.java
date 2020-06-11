@@ -51,7 +51,7 @@ public class ClienteController {
 		Cliente user = (Cliente) model.getAttribute("usuario");
 		model.addAttribute("titulo", "Cliente");
 		model.addAttribute("cliente", user);
-		return "catalogo/cliente/info";
+		return "catalogo/cliente/info"; 
 	}
 
 	@GetMapping({ "/buscarNombre" })

@@ -136,7 +136,18 @@ public class PrestamoController {
 			model.addAttribute("mensaje", mensaje);
 			return "catalogo/prestamo/form";
 		}
-
+		switch(prestamo.getTipoPrestamo()) {
+		case 1:
+			prestamo.setMonto(prestamo.getMonto()*1.05f);
+			break;
+		case 2:
+			prestamo.setMonto(prestamo.getMonto()*1.1f);
+			break;
+		case 3:
+			prestamo.setMonto(prestamo.getMonto()*1.3f);
+			break;
+		}
+		
 		prestamoDao.insert(prestamo);
 		return "redirect:/prestamo";
 	}
@@ -146,7 +157,7 @@ public class PrestamoController {
 		if (model.getAttribute("usuario") == null) {
 			return "redirect:/login";
 		}
-		Long total;
+		Float total;
 		if (cantidad != null && cantidad >= 0) {
 			total = prestamo.getAbonoTotal() + cantidad;
 			if (total > prestamo.getMonto()) {
@@ -154,7 +165,7 @@ public class PrestamoController {
 				errores.put("cantidad", "Cantidad excesiva");
 				model.addAttribute("errores", errores);
 				return "catalogo/prestamo/abono";
-			} else if (total == prestamo.getMonto()) {
+			} else if (total.equals(prestamo.getMonto())) {
 				prestamo.setPagado(1);
 			}
 			prestamo.setAbonoTotal(total);

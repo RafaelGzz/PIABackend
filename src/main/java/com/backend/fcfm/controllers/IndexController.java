@@ -81,7 +81,7 @@ public class IndexController {
 		}
 		Cliente cliente = new Cliente();
 		cliente.setTelefono(0l);
-		cliente.setMonto(0l);
+		cliente.setMonto(0f);
 		model.addAttribute("cliente", cliente);
 		return "registro";
 	}

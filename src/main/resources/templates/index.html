@@ -62,15 +62,16 @@
 				<li><a th:href="@{/cliente}">Clientes</a></li>
 				<li><a th:href="@{/prestamo}">Prestamos</a></li>
 				<li><a th:href="@{/dinero}">Dinero</a></li>
+				<li><a th:href="@{/cliente/informacion}">Mi cuenta</a></li>
 			</ul>
 		</div>
 
 		<div th:unless="${usuario.user == 'ADMIN'}">
 			<h1>Cliente</h1>
 			<ul>
-				<li><a th:href="@{/cliente}">Clientes</a></li>
-				<li><a th:href="@{/prestamo}">Prestamos</a></li>
-				<li><a th:href="@{/dinero}">Dinero</a></li>
+				<li><a th:href="@{/cliente/informacion}">Mi cuenta</a></li>
+				<li><a th:href="@{/prestamo}">Mis prestamos</a></li>
+				<li><a th:href="@{/cliente/abonarCuenta}">Abonar / Retirar de mi dinero xd</a></li>
 			</ul>
 		</div> -->
 	</div>

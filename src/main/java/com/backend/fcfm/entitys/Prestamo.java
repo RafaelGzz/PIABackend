@@ -31,7 +31,7 @@ public class Prestamo {
 	private Cliente cliente;
 
 	@NotNull
-	private Long monto;
+	private Float monto;
 
 	@Column(name = "fecha_creacion")
 	@Temporal(TemporalType.DATE)
@@ -49,7 +49,7 @@ public class Prestamo {
 	private Integer tipoPrestamo;
 	
 	@NotNull
-	private Long abonoTotal;
+	private Float abonoTotal;
 
 	@NotNull
 	@pagado
@@ -57,7 +57,7 @@ public class Prestamo {
 	
 	public Prestamo() {
 		this.pagado = 0;
-		this.abonoTotal = 0l;
+		this.abonoTotal = 0f;
 	}
 
 	public Integer getIdPrestamo() {
@@ -76,11 +76,11 @@ public class Prestamo {
 		this.cliente = cliente;
 	}
 
-	public Long getMonto() {
+	public Float getMonto() {
 		return monto;
 	}
 
-	public void setMonto(Long monto) {
+	public void setMonto(Float monto) {
 		this.monto = monto;
 	}
 
@@ -108,11 +108,11 @@ public class Prestamo {
 		this.tipoPrestamo = tipoPrestamo;
 	}
 
-	public Long getAbonoTotal() {
+	public Float getAbonoTotal() {
 		return abonoTotal;
 	}
 
-	public void setAbonoTotal(Long abonoTotal) {
+	public void setAbonoTotal(Float abonoTotal) {
 		this.abonoTotal = abonoTotal;
 	}
 

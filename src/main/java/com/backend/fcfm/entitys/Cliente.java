@@ -44,7 +44,7 @@ public class Cliente {
 	private String direccion;
 
 	@NotNull
-	private Long monto;
+	private Float monto;
 
 	@OneToMany(mappedBy = "cliente")
 	private List<Prestamo> prestamos;
@@ -105,11 +105,11 @@ public class Cliente {
 		this.direccion = direccion;
 	}
 
-	public Long getMonto() {
+	public Float getMonto() {
 		return monto;
 	}
 
-	public void setMonto(Long monto) {
+	public void setMonto(Float monto) {
 		this.monto = monto;
 	}
 
