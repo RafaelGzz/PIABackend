@@ -101,7 +101,7 @@ public class ClienteDaoImp implements ClienteDao {
 		Float suma;
 		try{
 			Query q = en.createQuery("SELECT SUM(cliente.monto) FROM Cliente cliente");
-			suma = (Float) q.getSingleResult();
+			suma = Float.valueOf(q.getSingleResult().toString()); 
 		}catch(Exception e) {
 			suma = 0f;
 		}

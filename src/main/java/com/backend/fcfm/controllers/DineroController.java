@@ -23,8 +23,8 @@ public class DineroController{
 		Float sumaTotal;
 		Cliente cliente = new Cliente();
 		cliente = clienteDao.mayCliente();
-		System.out.println(cliente);
 		sumaTotal = clienteDao.totalMoney();
+		System.out.print(sumaTotal);
 		model.addAttribute("cliente", cliente);
 		model.addAttribute("sumaTotal", sumaTotal);
 		return "catalogo/Dinero/dinero";
