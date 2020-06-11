@@ -9,7 +9,6 @@
 </head>
 
 <body class="text-center">
-
 	<div class="row" style="height: 100vh;">
 		<div class="mx-auto col-6 align-self-center">
 			<h1 class="h1 mb-3 font-weight-nora" style="font-size: 5rem">Kemonito Banco</h1>
@@ -19,9 +18,9 @@
 				<input type="text" id="inputEmail" th:name="user" th:value="${user}" class="form-control"
 					placeholder="Usuario">
 
-				<label for="password" class="sr-only">Contrase&ntilde;a</label>
+				<label for="password" class="sr-only" >Contrase&ntilde;a</label>
 				<input type="password" id="inputPassword" th:name="password" th:value="${password}"
-					class="form-control" placeholder="Contraseña">
+					class="form-control" placeholder="Contraseña" style="margin-top: .5rem">
 
 				<div class="form-text text-danger" th:if="${error != null}" th:text="${error}"></div>
 				<br>

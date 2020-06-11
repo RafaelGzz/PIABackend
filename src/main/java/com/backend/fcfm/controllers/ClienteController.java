@@ -46,7 +46,6 @@ public class ClienteController {
 		model.addAttribute("titulo", "Cliente");
 		model.addAttribute("clientes", clienteDao.findNombre(nombre));
 		return "catalogo/cliente/lista";
-
 	}
 
 	@GetMapping({ "/buscarId" })
@@ -60,7 +59,6 @@ public class ClienteController {
 			Cliente cliente = clienteDao.find(id);
 			if (cliente != null) {
 				clientes.add(cliente);
-				
 			}
 			model.addAttribute("clientes", clientes);
 			return "catalogo/cliente/lista";

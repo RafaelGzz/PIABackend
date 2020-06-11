@@ -22,14 +22,14 @@ public class ClienteDaoImp implements ClienteDao {
 	@Transactional(readOnly = true)
 	@Override
 	public List<Cliente> findAll() {
-		List<Cliente> result = en.createQuery("from Cliente").getResultList();
+		List<Cliente> result = en.createQuery("from Cliente cliente where cliente.idCliente != 0").getResultList();
 		return result;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Cliente> findNombre(String nombreCompleto) {
-		List<Cliente> result = en.createQuery("SELECT cliente FROM Cliente cliente where upper(cliente.nombreCompleto) like upper('%"+nombreCompleto+"%') order by cliente.nombreCompleto").getResultList();
+		List<Cliente> result = en.createQuery("SELECT cliente FROM Cliente cliente where upper(cliente.nombreCompleto) like upper('%"+nombreCompleto+"%') and cliente.idCliente != 0 order by cliente.nombreCompleto").getResultList();
 		return result;
 	}
 	

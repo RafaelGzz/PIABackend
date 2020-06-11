@@ -33,71 +33,76 @@
 </header>
 
 <body>
-	<div class="container" style="margin-top: 2rem;">
-		<h1 class="text-success" th:text="${titulo}"></h1>
+	<div class="container" style="margin-top: 4rem;">
+		<h1 class="h1 mb-3 font-weight-nora" style="font-size: 3rem">Busqueda de Cliente</h1>
 
 		<div class="row">
 			<form th:action="@{/cliente}" method="get" class="col-2">
-				<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit"
-					value="Todos">Todos</button>
+				<div class="d-flex align-items-center" style="height:100%">
+					<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit" value="Todos">Todos</button>
+				</div>
 			</form>
-	
+
 			<form th:action="@{/cliente/buscarNombre}" method="get" class="col-5">
 				<div class="form-group">
 					<label>Nombre:</label>
 					<input type="text" id="nombre" name="nombre" class="form-control">
 				</div>
 				<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit"
-						value="Buscar por nombre">Ingresar</button>
+					value="Buscar por nombre">Buscar</button>
 			</form>
-	
+
 			<form th:action="@{/cliente/buscarId}" method="get" class="col-5">
 				<div class="form-group">
 					<label>ID:</label>
 					<input type="text" id="id" name="id" class="form-control">
 				</div>
 				<button class="btn btn-lg btn-primary btn-block" type="submit" id="submit"
-					value="Buscar por id">Ingresar</button>
-			</form>	
+					value="Buscar por id">Buscar</button>
+			</form>
 		</div>
-		
-		<table class="table" style="margin-top: 1rem;">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Usuario</th>
-					<th>Password</th>
-					<th>Nombre</th>
-					<th>Correo</th>
-					<th>Telefono</th>
-					<th>Direccion</th>
-					<th>Monto</th>
-					<th>Editar</th>
-					<th>Eliminar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<div th:if="${#lists.size(clientes) != 0}">
-				<tr th:each="cliente: ${clientes}">
-					<td th:text="${cliente.idCliente}"></td>
-					<td th:text="${cliente.user}"></td>
-					<td th:text="${cliente.password}"></td>
-					<td th:text="${cliente.nombreCompleto}"></td>
-					<td th:text="${cliente.correo}"></td>
-					<td th:text="${cliente.telefono}"></td>
-					<td th:text="${cliente.direccion}"></td>
-					<td th:text="${cliente.monto}"></td>
-					<td><a th:href="@{/cliente/form/} + ${cliente.idCliente}">Editar</a></td>
-					<td><a th:href="@{/cliente/eliminar/} + ${cliente.idCliente}">Eliminar</a></td>
-				</tr>
-				</div>
-				<div th:unless="${#lists.size(clientes) != 0}">
+
+		<div class="table-responsive">
+			<table class="table" style="margin-top: 1rem;">
+				<thead>
 					<tr>
-						<td colspan="10">No se encontraron registros</td>
+						<th>ID</th>
+						<th>Usuario</th>
+						<th>Password</th>
+						<th>Nombre</th>
+						<th>Correo</th>
+						<th>Telefono</th>
+						<th>Direccion</th>
+						<th>Monto</th>
+						<th>Editar</th>
+						<th>Eliminar</th>
 					</tr>
-				</div>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<div th:if="${#lists.size(clientes) != 0}">
+					<tr th:each="cliente: ${clientes}">
+						<td th:text="${cliente.idCliente}"></td>
+						<td th:text="${cliente.user}"></td>
+						<td th:text="${cliente.password}"></td>
+						<td th:text="${cliente.nombreCompleto}"></td>
+						<td th:text="${cliente.correo}"></td>
+						<td th:text="${cliente.telefono}"></td>
+						<td th:text="${cliente.direccion}"></td>
+						<td th:text="${cliente.monto}"></td>
+						<td><a th:href="@{/cliente/form/} + ${cliente.idCliente}"><svg class="bi bi-wrench" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019L13 11l-.471.242-.529.026-.287.445-.445.287-.026.529L11 13l.242.471.026.529.445.287.287.445.529.026L13 15l.471-.242.529-.026.287-.445.445-.287.026-.529L15 13l-.242-.471-.026-.529-.445-.287-.287-.445-.529-.026z"/>
+						  	</svg></a></td>
+						<td><a th:href="@{/cliente/eliminar/} + ${cliente.idCliente}"><svg class="bi bi-x-square-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+  							<path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm9.854 4.854a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z"/>
+							</svg></a></td>
+					</tr>
+					</div>
+				</tbody>
+			</table>
+			<div th:unless="${#lists.size(clientes) != 0}">
+					<p class="jumbotron text-center">No se encontraron registros	</p>	
+			</div>
+		</div>
 	</div>
 
 
