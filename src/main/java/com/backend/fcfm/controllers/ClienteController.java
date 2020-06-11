@@ -37,6 +37,17 @@ public class ClienteController {
 		model.addAttribute("clientes", clienteDao.findAll());
 		return "catalogo/cliente/lista";
 	}
+	
+	@GetMapping({ "/informacion" })
+    public String info(Model model) {
+        if (model.getAttribute("usuario") == null) {
+            return "redirect:/login";
+        }
+        Cliente user=(Cliente) model.getAttribute("usuario");
+        model.addAttribute("titulo", "Cliente");
+        model.addAttribute("clientes", clienteDao.find(user.getIdCliente()));
+        return "catalogo/cliente/info";
+    }
 
 	@GetMapping({ "/buscarNombre" })
 	public String buscarNombre(@RequestParam(name = "nombre") String nombre, Model model) {
