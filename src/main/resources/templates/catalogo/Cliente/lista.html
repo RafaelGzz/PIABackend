@@ -35,7 +35,9 @@
 <body>
 	<div class="container" style="margin-top: 4rem;">
 		<h1 class="h1 mb-3 font-weight-nora" style="font-size: 3rem">Busqueda de Cliente</h1>
-
+		<form th:action="@{/cliente/form}" method="">
+			<button class="btn btn-success btn-block" type="submit" id="submit">Nuevo Cliente</button>
+		</form>
 		<div class="row">
 			<form th:action="@{/cliente}" method="get" class="col-2">
 				<div class="d-flex align-items-center" style="height:100%">
