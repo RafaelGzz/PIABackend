@@ -1,8 +1,11 @@
 package com.backend.fcfm.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,9 +24,11 @@ public class IndexController {
 
 	@GetMapping({ "/", "/login" })
 	public String login(Model model) {
+		
 		if(model.getAttribute("usuario") != null) {
 			return "redirect:/index";
 		}
+		
 		String user = new String();
 		String password = new String();
 		model.addAttribute("user", user);
@@ -33,6 +38,7 @@ public class IndexController {
 
 	@PostMapping({ "/login/ingresar" })
 	public String ingresar(@RequestParam("user") String user, @RequestParam("password") String password, Model model, SessionStatus sesion) {
+		
 		if(user == null || user == "" || password == null || password == "") {
 			model.addAttribute("user", user);
 			model.addAttribute("password", password);
@@ -40,8 +46,9 @@ public class IndexController {
 			return "login";
 		}
 		
-		Cliente cliente = clienteDao.login(user.toUpperCase(), password);
+		Cliente cliente = clienteDao.login(user, password);
 		model.addAttribute("usuario", cliente);
+		
 		if(cliente == null) {
 			model.addAttribute("error", "Cliente no existe");
 			sesion.setComplete();
@@ -64,6 +71,29 @@ public class IndexController {
 	public String logOut(Model model, SessionStatus sesion) {
 		sesion.setComplete();
 		return "redirect:/login";
+	}
+	
+	@GetMapping({ "/registro" })
+	public String registro(Model model) {
+		
+		if(model.getAttribute("usuario") != null) {
+			return "redirect:/index";
+		}
+		Cliente cliente = new Cliente();
+		cliente.setTelefono(0l);
+		cliente.setMonto(0l);
+		model.addAttribute("cliente", cliente);
+		return "registro";
+	}
+	
+	@PostMapping({"/registrar"})
+	public String registrar(@Valid Cliente cliente, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			return "registro";
+		}
+		clienteDao.insert(cliente);
+		
+		return "login";
 	}
 
 }

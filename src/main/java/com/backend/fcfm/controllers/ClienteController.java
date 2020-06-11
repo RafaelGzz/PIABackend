@@ -1,7 +1,9 @@
 package com.backend.fcfm.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -30,28 +32,32 @@ public class ClienteController {
 
 	@GetMapping({ "", "/" })
 	public String Clientes(Model model) {
-		if (model.getAttribute("usuario") == null) {
+		
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		System.out.print(usuario.getUser());
+		if (usuario == null || !usuario.getUser().equals("Admin")) {
 			return "redirect:/login";
 		}
 		model.addAttribute("titulo", "Cliente");
 		model.addAttribute("clientes", clienteDao.findAll());
 		return "catalogo/cliente/lista";
 	}
-	
+
 	@GetMapping({ "/informacion" })
-    public String info(Model model) {
-        if (model.getAttribute("usuario") == null) {
-            return "redirect:/login";
-        }
-        Cliente user=(Cliente) model.getAttribute("usuario");
-        model.addAttribute("titulo", "Cliente");
-        model.addAttribute("clientes", clienteDao.find(user.getIdCliente()));
-        return "catalogo/cliente/info";
-    }
+	public String info(Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
+		Cliente user = (Cliente) model.getAttribute("usuario");
+		model.addAttribute("titulo", "Cliente");
+		model.addAttribute("cliente", user);
+		return "catalogo/cliente/info";
+	}
 
 	@GetMapping({ "/buscarNombre" })
 	public String buscarNombre(@RequestParam(name = "nombre") String nombre, Model model) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null || !usuario.getUser().equals("Admin")) {
 			return "redirect:/login";
 		}
 		model.addAttribute("titulo", "Cliente");
@@ -61,7 +67,8 @@ public class ClienteController {
 
 	@GetMapping({ "/buscarId" })
 	public String buscarId(@RequestParam(name = "id") Integer id, Model model) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null || !usuario.getUser().equals("Admin")) {
 			return "redirect:/login";
 		}
 		if (id != null && id >= 0) {
@@ -80,7 +87,8 @@ public class ClienteController {
 
 	@GetMapping({ "/form" })
 	public String form(Model model) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null || !usuario.getUser().equals("Admin")) {
 			return "redirect:/login";
 		}
 		Cliente cliente = new Cliente();
@@ -91,20 +99,39 @@ public class ClienteController {
 
 	@PostMapping({ "/guardar" })
 	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, SessionStatus sesion) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null ) {
 			return "redirect:/login";
 		}
+
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Cliente");
 			return "catalogo/cliente/form";
 		}
+		
 		clienteDao.insert(cliente);
-		return "redirect:/cliente";
+		if (usuario.getUser() == "Admin") {
+			return "redirect:/cliente";
+		} else {
+			model.addAttribute("usuario", cliente);
+			return "redirect:/cliente/informacion";
+		}
+	}
+	
+	@GetMapping({ "/abonarCuenta" })
+	public String abonar(Model model) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("cliente", usuario);
+		return "catalogo/cliente/abono";
 	}
 
 	@GetMapping({ "/form/{id}" })
 	public String editar(@PathVariable Integer id, Model model) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null || !usuario.getUser().equals("Admin")) {
 			return "redirect:/login";
 		}
 		model.addAttribute("titulo", "Alumno");
@@ -113,6 +140,19 @@ public class ClienteController {
 		return "catalogo/cliente/form";
 
 	}
+	
+	@GetMapping({ "/myInfo" })
+	public String editarInfo( Model model) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("titulo", "Alumno");
+		model.addAttribute("cliente", usuario);
+		return "catalogo/cliente/form";
+
+	}
+	
 
 	@GetMapping({ "/eliminar/{id}" })
 	public String eliminar(@PathVariable Integer id, Model model) {
@@ -123,6 +163,41 @@ public class ClienteController {
 			clienteDao.delete(id);
 		}
 		return "redirect:/cliente";
+	}
+	
+	@PostMapping({"/depositar"})
+	public String depositar(@RequestParam(name = "depositar", required = true) Long depositar, Model model) {
+		if (model.getAttribute("usuario") == null) {
+			return "redirect:/login";
+		}
+		Map<String, String> errores = new HashMap<>();
+		if(depositar == null || depositar <= 0) {
+			errores.put("depositar", "Ingrese un valor valido");
+			model.addAttribute("errores", errores);
+			return "catalogo/cliente/abono";
+		}
+		
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		usuario.setMonto(usuario.getMonto() + depositar);
+		clienteDao.update(usuario);
+		return "catalogo/cliente/abono";
+	}
+	
+	@PostMapping({"/retirar"})
+	public String retirar(@RequestParam(name = "retirar", required = true) Long retirar, Model model) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null) {
+			return "redirect:/login";
+		}
+		Map<String, String> errores = new HashMap<>();
+		if(retirar == null || retirar <= 0 || retirar > usuario.getMonto()) {
+			errores.put("retirar", "Ingrese un valor valido");
+			model.addAttribute("errores", errores);
+			return "catalogo/cliente/abono";
+		}
+		usuario.setMonto(usuario.getMonto() - retirar);
+		clienteDao.update(usuario);
+		return "catalogo/cliente/abono";
 	}
 
 }

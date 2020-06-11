@@ -29,4 +29,6 @@ public class DineroController{
 		model.addAttribute("sumaTotal", sumaTotal);
 		return "catalogo/Dinero/dinero";
 	}	
+	
+	
 }

@@ -13,4 +13,5 @@ public interface PrestamoDao {
 	void delete(Integer id);
 	List<Prestamo> findFecha(String fechaInicio, String fechaFin);
 	List<Prestamo> findPorPagado(Integer opcion);
+	List<Prestamo> findByClient(Integer id);
 }

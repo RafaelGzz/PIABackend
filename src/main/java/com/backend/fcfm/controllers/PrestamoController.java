@@ -36,17 +36,25 @@ public class PrestamoController {
 
 	@GetMapping({ "", "/" })
 	public String Prestamos(Model model) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null) {
 			return "redirect:/login";
 		}
 		model.addAttribute("titulo", "Prestamos");
-		model.addAttribute("prestamos", prestamoDao.findAll());
+		List<Prestamo> prestamos;
+		if (usuario.getUser().equals("Admin")) {
+			prestamos = prestamoDao.findAll();
+		}else {
+			prestamos = prestamoDao.findByClient(usuario.getIdCliente());
+		}
+		model.addAttribute("prestamos", prestamos);
 		return "catalogo/prestamo/lista";
 	}
 
 	@GetMapping({ "/buscarId" })
 	public String buscarId(@RequestParam(name = "id") Integer id, Model model) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null || !usuario.getUser().equals("Admin")) {
 			return "redirect:/login";
 		}
 		if (id != null && id >= 0) {
@@ -64,7 +72,8 @@ public class PrestamoController {
 
 	@GetMapping({ "/buscarPagados/{opc}" })
 	public String buscarPagados(@PathVariable Integer opc, Model model) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null || !usuario.getUser().equals("Admin")) {
 			return "redirect:/login";
 		}
 		model.addAttribute("titulo", "Prestamos");
@@ -76,7 +85,8 @@ public class PrestamoController {
 	@GetMapping({ "/buscarFecha" })
 	public String buscarFecha(@RequestParam(name = "fechaInicio") String fechaInicio,
 			@RequestParam(name = "fechaFin") String fechaFin, Model model) {
-		if (model.getAttribute("usuario") == null) {
+		Cliente usuario = (Cliente) model.getAttribute("usuario");
+		if (usuario == null || !usuario.getUser().equals("Admin")) {
 			return "redirect:/login";
 		}
 		if (fechaInicio != null && fechaInicio != "" && fechaFin != null && fechaFin != "") {
@@ -137,7 +147,7 @@ public class PrestamoController {
 			return "redirect:/login";
 		}
 		Long total;
-		if (cantidad != null && cantidad >=0) {
+		if (cantidad != null && cantidad >= 0) {
 			total = prestamo.getAbonoTotal() + cantidad;
 			if (total > prestamo.getMonto()) {
 				Map<String, String> errores = new HashMap<>();
@@ -159,7 +169,6 @@ public class PrestamoController {
 			return "redirect:/login";
 		}
 		Map<String, String> errores = new HashMap<>();
-		;
 		model.addAttribute("errores", errores);
 		Prestamo editar = prestamoDao.find(id);
 		model.addAttribute("prestamo", editar);

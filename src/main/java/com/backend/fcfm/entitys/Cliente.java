@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.backend.fcfm.validators.Telefono;
+
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -35,6 +37,7 @@ public class Cliente {
 	private String correo;
 
 	@NotNull
+	@Telefono
 	private Long telefono;
 
 	@NotEmpty

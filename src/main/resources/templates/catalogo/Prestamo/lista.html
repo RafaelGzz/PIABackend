@@ -35,8 +35,10 @@
 <body>
 	<div class="container" style="margin-top: 4rem;">
 		<h1 class="h1 mb-3 font-weight-nora" style="font-size: 3rem">Prestamo</h1>
-		
-		<div class="row d-flex justify-content-center">
+		<form th:action="@{/prestamo/form}" method="">
+			<button class="btn btn-success btn-block" type="submit" id="submit">Nuevo Prestamo</button>
+		</form>
+		<div class="row d-flex justify-content-center" th:if="${usuario.user} == 'Admin'">
 			<div class="col-2">
 				<div style="height:100%">
 					<form th:action="@{/prestamo}" method="get" style="padding: .1rem">
@@ -83,7 +85,7 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Cliente</th>
+						<th th:if="${usuario.user} == 'Admin'">Cliente</th>
 						<th>Monto</th>
 						<th>Abonado</th>
 						<th>Tipo</th>
@@ -96,7 +98,7 @@
 					<div th:if="${#lists.size(prestamos) != 0}">
 					<tr th:each="prestamo: ${prestamos}">
 						<td th:text="${prestamo.idPrestamo}"></td>
-						<td th:text="${prestamo.cliente.nombreCompleto}"></td>
+						<td th:if="${usuario.user} == 'Admin'" th:text="${prestamo.cliente.nombreCompleto}"></td>
 						<td th:text="${prestamo.monto}"></td>
 						<td th:text="${prestamo.abonoTotal}"></td>
 						<td th:text="${prestamo.tipoPrestamo}"></td>

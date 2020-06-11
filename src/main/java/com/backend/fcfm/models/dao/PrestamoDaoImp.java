@@ -78,4 +78,11 @@ public class PrestamoDaoImp implements PrestamoDao {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Prestamo> findByClient(Integer id) {
+		List<Prestamo> result = en.createQuery("Select prestamo from Prestamo prestamo where prestamo.cliente.idCliente = ?1").setParameter(1, id).getResultList();
+		return result;
+	}
+
 }

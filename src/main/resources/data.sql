@@ -1,3 +1,2 @@
-insert into cliente(id_cliente, user, password, nombre_completo, correo, telefono, direccion, monto) values (0, 'ADMIN', 'admin', 'Administrador', 'admin@admin.com', 0, 'Nowere', 0);
-insert into cliente(id_cliente, user, password, nombre_completo, correo, telefono, direccion, monto) values (1, 'RAFAELGZZ', '22778', 'Rafael González', 'ragl@gmail.com', 810123123, 'Mi casa', 500);
-insert into prestamo(id_prestamo, abono_total, fecha_creacion, fecha_expiracion, monto, pagado, tipo_prestamo, id_cliente) values(1, 0, TO_DATE('9/6/2020', 'DD/MM/YYYY'), TO_DATE('29/6/2020', 'DD/MM/YYYY'), 200, 0, 1, 1);
+insert into cliente(id_cliente, user, password, nombre_completo, correo, telefono, direccion, monto) values (1, 'Admin', 'admin', 'Administrador', 'admin@admin.com', 8100000001, 'Nowere', 0);
+insert into cliente(id_cliente, user, password, nombre_completo, correo, telefono, direccion, monto) values (2, 'RafaelGzz', '22778', 'Rafael González', 'ragl@gmail.com', 8101231232, 'Mi casa', 500);

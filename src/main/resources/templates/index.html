@@ -57,21 +57,22 @@
 		</div>
 	</div>
 
-	<div th:if="${usuario.user == 'ADMIN'}">
+	<div th:if="${usuario.user == 'Admin'}">
 		<h1>Admin</h1>
 		<ul>
 			<li><a th:href="@{/cliente}">Clientes</a></li>
 			<li><a th:href="@{/prestamo}">Prestamos</a></li>
 			<li><a th:href="@{/dinero}">Dinero</a></li>
+			<li><a th:href="@{/cliente/informacion}">Mi informacion</a></li>
 		</ul>
 	</div>
 
-	<div th:unless="${usuario.user == 'ADMIN'}">
+	<div th:unless="${usuario.user == 'Admin'}">
 		<h1>Cliente</h1>
 		<ul>
-			<li><a th:href="@{/cliente}">Clientes</a></li>
-			<li><a th:href="@{/prestamo}">Prestamos</a></li>
-			<li><a th:href="@{/dinero}">Dinero</a></li>
+			<li><a th:href="@{/cliente/informacion}">Mi informacion</a></li>
+			<li><a th:href="@{/cliente/abonarCuenta}">Abonar / Retirar</a></li>
+			<li><a th:href="@{/prestamo}">Mis prestamos</a></li>
 		</ul>
 	</div>
 

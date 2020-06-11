@@ -77,7 +77,7 @@ public class ClienteDaoImp implements ClienteDao {
 	public Cliente login(String user, String password) {
 		Cliente cliente;
 		try{
-			cliente = (Cliente) en.createQuery("SELECT cliente from Cliente cliente where cliente.user = ?1 and cliente.password = ?2").setParameter(1, user).setParameter(2, password).getSingleResult();
+			cliente = (Cliente) en.createQuery("SELECT cliente from Cliente cliente where upper(cliente.user) = ?1 and cliente.password = ?2").setParameter(1, user.toUpperCase()).setParameter(2, password).getSingleResult();
 		}catch(Exception e) {
 			cliente = null;
 		}
