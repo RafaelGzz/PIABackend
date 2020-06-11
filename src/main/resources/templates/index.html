@@ -10,23 +10,20 @@
 
 <header>
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #003c80; height: 4rem">
-		<a class="navbar-brand" href="#">Kemonito Banco</a>
+		<a class="navbar-brand" th:href="@{index}">Kemonito Banco</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
 			aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#">Link</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-				</li>
 			</ul>
+			<form th:action="@{/logOut}">
+				<button class="btn btn-danger my-2 my-lg-0" type="submit">Cerrar Sesion</button>
+			</form>
 		</div>
 	</nav>
 	<br>
@@ -34,48 +31,114 @@
 
 
 <body>
-	<div id="bankCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 2rem">
-		<ol class="carousel-indicators">
-			<li data-target="#bankCarouselCaptions" data-slide-to="0" class="active"></li>
-			<li data-target="#bankCarouselCaptions" data-slide-to="1"></li>
-		</ol>
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<img src="../static/images/slide1.jpg" th:src="@{images/slide1.jpg}" class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block rounded" style="background-color: rgba(53, 53, 53, 0.400)">
-					<h5>La mejor atencion del mercado</h5>
-					<p>Siempre estamos para ti cuando lo necesitas</p>
+	<div class="container">
+		<div id="bankCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 2rem">
+			<ol class="carousel-indicators">
+				<li data-target="#bankCarouselCaptions" data-slide-to="0" class="active"></li>
+				<li data-target="#bankCarouselCaptions" data-slide-to="1"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="../static/images/slide1.jpg" th:src="@{images/slide1.jpg}" class="d-block w-100">
+					<div class="carousel-caption d-none d-md-block rounded"
+						style="background-color: rgba(53, 53, 53, 0.400)">
+						<h5>La mejor atencion del mercado</h5>
+						<p>Siempre estamos para ti cuando lo necesitas</p>
+					</div>
 				</div>
-			</div>
-			<div class="carousel-item">
-				<img src="../static/images/slide2.jpg" th:src="@{images/slide2.jpg}" class="d-block w-100" alt="...">
-				<div class="carousel-caption d-none d-md-block" style="background-color: rgba(53, 53, 53, 0.400)">
-					<h5>Un banco de primer nivel</h5>
-					<p>Estamos preparados para brindarte los mejores prestamos</p>
+				<div class="carousel-item">
+					<img src="../static/images/slide2.jpg" th:src="@{images/slide2.jpg}" class="d-block w-100">
+					<div class="carousel-caption d-none d-md-block" style="background-color: rgba(53, 53, 53, 0.400)">
+						<h5>Un banco de primer nivel</h5>
+						<p>Estamos preparados para brindarte los mejores prestamos</p>
+					</div>
 				</div>
 			</div>
 		</div>
+
+		<!-- <div th:if="${usuario.user == 'ADMIN'}">
+			<h1>Admin</h1>
+			<ul>
+				<li><a th:href="@{/cliente}">Clientes</a></li>
+				<li><a th:href="@{/prestamo}">Prestamos</a></li>
+				<li><a th:href="@{/dinero}">Dinero</a></li>
+			</ul>
+		</div>
+
+		<div th:unless="${usuario.user == 'ADMIN'}">
+			<h1>Cliente</h1>
+			<ul>
+				<li><a th:href="@{/cliente}">Clientes</a></li>
+				<li><a th:href="@{/prestamo}">Prestamos</a></li>
+				<li><a th:href="@{/dinero}">Dinero</a></li>
+			</ul>
+		</div> -->
 	</div>
 
-	<div th:if="${usuario.user == 'Admin'}">
-		<h1>Admin</h1>
-		<ul>
-			<li><a th:href="@{/cliente}">Clientes</a></li>
-			<li><a th:href="@{/prestamo}">Prestamos</a></li>
-			<li><a th:href="@{/dinero}">Dinero</a></li>
-			<li><a th:href="@{/cliente/informacion}">Mi informacion</a></li>
-		</ul>
-	</div>
+	<div class="container marketing" style="margin-top: 2rem;">
+		<div class="row">
+			<div class="col-lg-4 text-center">
+				<img class="rounded-circle" src="https://www.vivus.es/blog/wp-content/uploads/2019/01/tipos-de-banco.jpeg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h2>Somos un banco confiable</h2>
+				<p>Cuidamos de tu dinero desde el momento en que lo depositas.</p>
+			</div>
+			<div class="col-lg-4 text-center">
+				<img class="rounded-circle" src="https://www.suspendde.com/img/sitio/notas/medium/como-cambiar-tu-cuenta-de-nomina-otro-banco.jpg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h2>Tu eres lo mas importante</h2>
+				<p>La atencions que te brindamos siempre sera de maxima calidad, para nosotros tu eres prioridad</p>
+			</div>
+			<div class="col-lg-4 text-center">
+				<img class="rounded-circle" src="https://d500.epimg.net/cincodias/imagenes/2019/02/08/mercados/1549629352_971073_1549644601_noticia_normal.jpg"
+					alt="Generic placeholder image" width="140" height="140">
+				<h2>Queremos mejorar</h2>
+				<p>Tus opiniones van directo a nuestros administradores para mejorar dia con dia</p>
+			</div>
+		</div>
 
-	<div th:unless="${usuario.user == 'Admin'}">
-		<h1>Cliente</h1>
-		<ul>
-			<li><a th:href="@{/cliente/informacion}">Mi informacion</a></li>
-			<li><a th:href="@{/cliente/abonarCuenta}">Abonar / Retirar</a></li>
-			<li><a th:href="@{/prestamo}">Mis prestamos</a></li>
-		</ul>
-	</div>
+		<hr class="featurette-divider">
 
+		<div class="row featurette">
+			<div class="col-md-7">
+				<h2 class="featurette-heading">Seguros. <span class="text-muted">Transparentes</span></h2>
+				<p class="lead">Tendras acceso a tu cuenta en todo momento para depositar y obtener dinero.</p>
+			</div>
+			<div class="col-md-5">
+				<img class="featurette-image img-fluid mx-auto rounded" src="https://www.muyseguridad.net/wp-content/uploads/2020/01/Seguridad_Internet.jpg"
+					alt="Generic placeholder image">
+			</div>
+		</div>
+
+		<hr class="featurette-divider">
+
+		<div class="row featurette">
+			<div class="col-md-7 order-md-2">
+				<h2 class="featurette-heading">Prestamos. <span class="text-muted">Intereses</span></h2>
+				<p class="lead">Aqui dispondras con dinero en todo momento de forma rapida y segura.</p>
+			</div>
+			<div class="col-md-5 order-md-1">
+				<img class="featurette-image img-fluid mx-auto rounded" src="https://tecnicasmarketing.com/wp-content/uploads/2019/11/prestamo-personal-696x394.jpg"
+					alt="Generic placeholder image">
+			</div>
+		</div>
+
+		<hr class="featurette-divider">
+
+		<div class="row featurette">
+			<div class="col-md-7">
+				<h2 class="featurette-heading">Muchas cosas mas. <span class="text-muted">Y mas.</span></h2>
+				<p class="lead">Estamos en constante expansion asi que siempre tendremos algo nuevo para ofrecerte.</p>
+			</div>
+			<div class="col-md-5">
+				<img class="featurette-image img-fluid mx-auto" src="https://www.ecestaticos.com/imagestatic/clipping/403/358/40335811c07b1d9a16d3c646c18d71f2/lo-que-los-datos-de-linkedin-nos-muestran-sobre-el-futuro-de-trabajo.jpg?mtime=1579565836"
+					alt="Generic placeholder image">
+			</div>
+		</div>
+
+		<hr class="featurette-divider">
+
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
