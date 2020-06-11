@@ -136,17 +136,20 @@ public class PrestamoController {
 		if (model.getAttribute("usuario") == null) {
 			return "redirect:/login";
 		}
-		Long total = prestamo.getAbonoTotal() + cantidad;
-		if (total > prestamo.getMonto()) {
-			Map<String, String> errores = new HashMap<>();
-			errores.put("cantidad", "Cantidad excesiva");
-			model.addAttribute("errores", errores);
-			return "catalogo/prestamo/abono/" + prestamo.getIdPrestamo();
-		} else if (total == prestamo.getMonto()) {
-			prestamo.setPagado(1);
+		Long total;
+		if (cantidad != null && cantidad >=0) {
+			total = prestamo.getAbonoTotal() + cantidad;
+			if (total > prestamo.getMonto()) {
+				Map<String, String> errores = new HashMap<>();
+				errores.put("cantidad", "Cantidad excesiva");
+				model.addAttribute("errores", errores);
+				return "catalogo/prestamo/abono";
+			} else if (total == prestamo.getMonto()) {
+				prestamo.setPagado(1);
+			}
+			prestamo.setAbonoTotal(total);
+			prestamoDao.update(prestamo);
 		}
-		prestamo.setAbonoTotal(total);
-		prestamoDao.update(prestamo);
 		return "redirect:/prestamo";
 	}
 
