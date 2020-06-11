@@ -47,6 +47,7 @@
 			<input th:field="*{idPrestamo}" type="hidden">
 			<input th:field="*{abonoTotal}" type="hidden"> 
 			<input th:field="*{pagado}" type="hidden">
+			<input th:field="*{expirado}" type="hidden">
 			<div class="form-group" th:if="${usuario.user} == 'Admin'">
 				<label for="idCliente">ID Cliente</label> 
 				<input type="text" id="idCliente" name="idCliente" class="form-control">
@@ -89,7 +90,7 @@
 				<div th:if="${#fields.hasErrors('tipoPrestamo')}"
 					th:errors="*{tipoPrestamo}"></div>
 			</div>
-			<button class="btn btn-primary btn-block" type="submit" id="submit" value="Enviar">Enviar</button>
+			<button class="btn btn-primary btn-block" type="submit" id="submit" value="Enviar">Agregar</button>
 		</form>
 	</div>
 

@@ -138,7 +138,8 @@
 							<td th:if="${prestamo.pagado} == 1">Si</td>
 							
 							<td th:text="${prestamo.fechaCreacion}"></td>
-							<td th:text="${prestamo.fechaExpiracion}"></td>
+							<td th:if="${prestamo.expirado} == 0" th:text="${prestamo.fechaExpiracion}"></td>
+							<td th:if="${prestamo.expirado} == 1" class="text-danger" th:text="${prestamo.fechaExpiracion}"></td>
 							<td th:if="${prestamo.pagado} == 0"><a
 								th:href="@{/prestamo/abono/} + ${prestamo.idPrestamo}">Abonar</a></td>
 						</tr>

@@ -2,37 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="ISO-8859-1">
-	<title th:text="${titulo}">Insert title here</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<meta charset="ISO-8859-1">
+<title th:text="${titulo}">Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
 </head>
 
 <header>
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #003c80; height: 4rem">
-		<a class="navbar-brand font-weight-bold" th:href="@{/index}">Kemonito Banco</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-			aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top"
+		style="background-color: #003c80; height: 4rem">
+		<a class="navbar-brand font-weight-bold" th:href="@{/index}">Kemonito
+			Banco</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul th:if="${usuario.user == 'Admin'}" class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<li><a th:href="@{/cliente}" style="color:white; margin-left: 1rem;">Clientes</a></li>
-					<li><a th:href="@{/prestamo}" style="color:white; margin-left: 1rem;">Prestamos</a></li>
-					<li><a th:href="@{/dinero}" style="color:white; margin-left: 1rem;">Dinero</a></li>
-					<li><a th:href="@{/cliente/informacion}" style="color:white; margin-left: 1rem;">Mi cuenta</a></li>
+				<li><a th:href="@{/cliente}"
+					style="color: white; margin-left: 1rem;">Clientes</a></li>
+				<li><a th:href="@{/prestamo}"
+					style="color: white; margin-left: 1rem;">Prestamos</a></li>
+				<li><a th:href="@{/dinero}"
+					style="color: white; margin-left: 1rem;">Dinero</a></li>
+				<li><a th:href="@{/cliente/informacion}"
+					style="color: white; margin-left: 1rem;">Mi cuenta</a></li>
 				</li>
 			</ul>
 			<ul th:unless="${usuario.user == 'Admin'}" class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<li><a th:href="@{/cliente/informacion}" style="color:white; margin-left: 1rem;">Mi cuenta</a></li>
-					<li><a th:href="@{/prestamo}" style="color:white; margin-left: 1rem;">Mis Prestamos</a></li>
-					<li><a th:href="@{/cliente/abonarCuenta}" style="color:white; margin-left: 1rem;">Abonar / Retirar</a></li>
+				<li><a th:href="@{/cliente/informacion}"
+					style="color: white; margin-left: 1rem;">Mi cuenta</a></li>
+				<li><a th:href="@{/prestamo}"
+					style="color: white; margin-left: 1rem;">Mis Prestamos</a></li>
+				<li><a th:href="@{/cliente/abonarCuenta}"
+					style="color: white; margin-left: 1rem;">Abonar / Retirar</a></li>
 				</li>
 			</ul>
 			<form th:action="@{/logOut}">
-				<button class="btn btn-danger my-2 my-lg-0" type="submit">Cerrar Sesion</button>
+				<button class="btn btn-danger my-2 my-lg-0" type="submit">Cerrar
+					Sesion</button>
 			</form>
 		</div>
 	</nav>
@@ -42,60 +55,80 @@
 <body>
 	<div class="container" style="margin-top: 4rem;">
 		<h1 class="h1 mb-3 font-weight-nora" style="font-size: 3rem">Abono</h1>
-		<form th:action="@{/prestamo/abonar}" method="post" th:object="${prestamo}">
-			<input th:field="*{idPrestamo}" type="hidden">
-			<input class="col-1" id="idCliente" th:field="*{cliente.idCliente}" type="hidden">
-			<input class="col-1" th:field="*{abonoTotal}" type="hidden">
-			<input class="col-1" th:field="*{pagado}" type="hidden">
-			<input class="col-1" id="monto" th:field="*{monto}" type="hidden">
-			<input class="col-1" type="hidden" id="fechaExpiracion" th:field="*{fechaExpiracion}">
-			<input class="col-1" id="tipoPrestamo" th:field="*{tipoPrestamo}" type="hidden">
-			<input class="col-2" type="hidden" id="fechaCreacion" th:field="*{fechaCreacion}">
-			
+		<form th:action="@{/prestamo/abonar}" method="post"
+			th:object="${prestamo}">
+			<input th:field="*{idPrestamo}" type="hidden"> 
+			<input class="col-1" id="idCliente" th:field="*{cliente.idCliente}"
+				type="hidden"> <input class="col-1" th:field="*{abonoTotal}"
+				type="hidden"> <input class="col-1" th:field="*{pagado}"
+				type="hidden"> <input class="col-1" th:field="*{expirado}"
+				type="hidden"> <input class="col-1" id="monto"
+				th:field="*{monto}" type="hidden"> <input class="col-1"
+				type="hidden" id="fechaExpiracion" th:field="*{fechaExpiracion}">
+			<input class="col-1" id="tipoPrestamo" th:field="*{tipoPrestamo}"
+				type="hidden"> <input class="col-2" type="hidden"
+				id="fechaCreacion" th:field="*{fechaCreacion}">
+
 			<div class="row">
 				<div class="col-6">
 					<ul class="list-group list-group-flush" style="font-size: 1.5rem;">
-						<li class="list-group-item">
-							<label for="cliente">Nombre: <span th:text="*{cliente.nombreCompleto}" ></span></label>
-						</li>
-						<li class="list-group-item">
-							<label for="abonoTotal">Abono Total: $<span th:text="*{abonoTotal}"></span></label>		
-						</li>
-						<li class="list-group-item">
-							<label for="pagado">Pagado: 
-							<span th:if="*{pagado} == 0">No</span>
-							<span th:if="*{pagado} == 1">Si</span>
-							</label>
-						</li>
-						<li class="list-group-item">
-							<label for="monto">Monto: $<span th:text="*{monto}"></span></label>
-						</li>
-						<li class="list-group-item">
-							<label for="monto">Fecha Creacion: <span th:text="*{fechaCreacion}"></span></label>
-						</li>
-						<li class="list-group-item">
-							<label for="monto">Fecha Expiracion: <span th:text="*{fechaExpiracion}"></span></label>
-						</li>
-						<li class="list-group-item">
-							<label for="tipoPrestamo">Tipo de Prestamo: 
-							<span th:if="*{tipoPrestamo} == 1">1 a 2 meses - 5%</span>
-							<span th:if="*{tipoPrestamo} == 2">3 a 6 meses - 10%</span>
-							<span th:if="*{tipoPrestamo} == 3">6 meses en adelante - 30%</span>
-							</label>
-						</li>
+						<li class="list-group-item"><label for="cliente">Nombre:
+								<span th:text="*{cliente.nombreCompleto}"></span>
+						</label></li>
+						<li class="list-group-item"><label for="pagado">Pagado:
+								<span th:if="*{pagado} == 0">No</span> <span
+								th:if="*{pagado} == 1">Si</span>
+						</label></li>
+						<li class="list-group-item"><label for="abonoTotal">Abono
+								Total: $<span th:text="*{abonoTotal}"></span>
+						</label></li>
+						<li class="list-group-item"><label for="monto">Monto:
+								$<span th:text="*{monto}"></span>
+						</label></li>
+						<li class="list-group-item"><label for="monto">Deuda:
+								$<span th:text="*{monto} - *{abonoTotal}"></span>
+						</label></li>
+						<li class="list-group-item"><label for="fechaCreacion">Fecha
+								Creacion: <span th:text="*{fechaCreacion}"></span>
+						</label></li>
+						<li class="list-group-item" th:if="*{expirado} == 1"><label
+							for="fechaExpiracion">Fecha Expiracion: <span
+								th:text="*{fechaExpiracion}" class="text-danger"></span></label></li>
+						<li class="list-group-item" th:if="*{expirado} == 0"><label
+							for="fechaExpiracion">Fecha Expiracion: <span
+								th:text="*{fechaExpiracion}"></span></label></li>
+						<li class="list-group-item" th:if="*{expirado} == 1"><label
+							for="expirado" class="text-danger">Expirado</label></li>
+						<li class="list-group-item"><label for="tipoPrestamo">Tipo
+								de Prestamo: <span th:if="*{tipoPrestamo} == 1">1 a 2
+									meses - 5%</span> <span th:if="*{tipoPrestamo} == 2">3 a 6
+									meses - 10%</span> <span th:if="*{tipoPrestamo} == 3">6 meses
+									en adelante - 30%</span>
+						</label></li>
 					</ul>
 				</div>
 				<div class="col-6">
 					<div class="card">
 						<div class="card-body">
 							<div class="form-group d-flex justify-content-center">
-								<label for="cantidad" style="font-size: 1.5rem;">Cantidad a abonar: </label><div style="width: 1rem;"></div>
-								<input class="form-control" type="text" id="cantidad" name="cantidad">
+								<label for="cantidad" style="font-size: 1.5rem;">Cantidad
+									a abonar: </label>
+								<div style="width: 1rem;"></div>
+								<input class="form-control" type="text" id="cantidad"
+									name="cantidad">
 							</div>
-							<div class="form-text text-danger" th:if="${errores != null && errores.containsKey('cantidad')}"
-								th:text="${errores.get('cantidad')}">
+							<div>
+								<input type="radio" id="saldo" name="opcion" value="0" required>
+								<label for="Saldo">Desde saldo personal</label>
+								<br> 
+								<input type="radio" id="nuevo" name="opcion" value="1" required> 
+								<label for="Nuevo">Nuevo abono</label>
 							</div>
-							<button class="btn btn-lg btn-primary btn-block" type="submit" id="name" value="Enviar">Enviar</button>
+							<div class="form-text text-danger"
+								th:if="${errores != null && errores.containsKey('cantidad')}"
+								th:text="${errores.get('cantidad')}"></div>
+							<button class="btn btn-lg btn-primary btn-block" type="submit"
+								id="name" value="Enviar">Enviar</button>
 						</div>
 					</div>
 				</div>
@@ -106,10 +139,12 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
 		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
 		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
 		crossorigin="anonymous"></script>
 

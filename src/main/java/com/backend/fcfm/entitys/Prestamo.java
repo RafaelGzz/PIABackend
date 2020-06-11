@@ -44,6 +44,10 @@ public class Prestamo {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@NotNull
 	private Date fechaExpiracion;
+	
+	@NotNull
+	@pagado
+	private Integer expirado;
 
 	@NotNull
 	private Integer tipoPrestamo;
@@ -98,6 +102,18 @@ public class Prestamo {
 
 	public void setFechaExpiracion(Date fechaExpiracion) {
 		this.fechaExpiracion = fechaExpiracion;
+	}
+
+	public Integer getExpirado() {
+		return expirado;
+	}
+
+	public void setExpirado(Integer expirado) {
+		this.expirado = expirado;
+	}
+
+	public void setPagado(Integer pagado) {
+		this.pagado = pagado;
 	}
 
 	public Integer getTipoPrestamo() {

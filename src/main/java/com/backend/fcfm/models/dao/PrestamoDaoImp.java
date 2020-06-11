@@ -1,5 +1,6 @@
 package com.backend.fcfm.models.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -17,44 +18,56 @@ public class PrestamoDaoImp implements PrestamoDao {
 
 	@Autowired
 	private EntityManager en;
-    
+
 	@SuppressWarnings("unchecked")
-	@Transactional(readOnly = true)
+	@Transactional()
 	@Override
 	public List<Prestamo> findAll() {
-		List<Prestamo> result = en.createQuery("from Prestamo").getResultList();
+		List<Prestamo> result = en.createQuery("from Prestamo prestamo order by prestamo.monto desc").getResultList();
+		Date date = new Date();
+		for (Prestamo p : result) {
+			if (date.after(p.getFechaExpiracion()) && p.getExpirado() == 0) {
+				p.setExpirado(1);
+				p.setMonto(p.getMonto()*1.10f);
+				update(p);
+			} 
+		}
 		return result;
 	}
-    
+
 	@Transactional
 	@Override
 	public Prestamo find(Integer id) {
 		Prestamo result = en.find(Prestamo.class, id);
 		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prestamo> findFecha(String fechaInicio, String fechaFin) {
-		List<Prestamo> result = en.createQuery("SELECT prestamo FROM Prestamo prestamo where prestamo.fechaCreacion between '"+fechaInicio+"' and '"+fechaFin+"'").getResultList();
+		List<Prestamo> result = en
+				.createQuery("SELECT prestamo FROM Prestamo prestamo where prestamo.fechaCreacion between '"
+						+ fechaInicio + "' and '" + fechaFin + "' order by prestamo.monto desc")
+				.getResultList();
 		return result;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prestamo> findPorPagado(Integer opcion) {
-		Query q = en.createQuery("SELECT prestamo from Prestamo prestamo where prestamo.pagado = :pagado");
+		Query q = en.createQuery(
+				"SELECT prestamo from Prestamo prestamo where prestamo.pagado = :pagado order by prestamo.monto desc");
 		q.setParameter("pagado", opcion);
 		List<Prestamo> result = q.getResultList();
 		return result;
 	}
-    
+
 	@Transactional
 	@Override
 	public void insert(Prestamo nuevo) {
-		if(nuevo.getIdPrestamo() != null && nuevo.getIdPrestamo() > 0) {
+		if (nuevo.getIdPrestamo() != null && nuevo.getIdPrestamo() > 0) {
 			en.merge(nuevo);
-		}else {
+		} else {
 			en.persist(nuevo);
 		}
 		en.flush();
@@ -69,7 +82,7 @@ public class PrestamoDaoImp implements PrestamoDao {
 		en.flush();
 
 	}
-    
+
 	@Transactional
 	@Override
 	public void delete(Integer id) {
@@ -81,7 +94,17 @@ public class PrestamoDaoImp implements PrestamoDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prestamo> findByClient(Integer id) {
-		List<Prestamo> result = en.createQuery("Select prestamo from Prestamo prestamo where prestamo.cliente.idCliente = ?1").setParameter(1, id).getResultList();
+		List<Prestamo> result = en.createQuery(
+				"Select prestamo from Prestamo prestamo where prestamo.cliente.idCliente = ?1 order by prestamo.monto desc")
+				.setParameter(1, id).getResultList();
+		Date date = new Date();
+		for (Prestamo p : result) {
+			if (date.after(p.getFechaExpiracion()) && p.getExpirado() == 0) {
+				p.setExpirado(1);
+				p.setMonto(p.getMonto()*1.10f);
+				update(p);
+			} 
+		}
 		return result;
 	}
 

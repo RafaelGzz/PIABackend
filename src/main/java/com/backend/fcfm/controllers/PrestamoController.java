@@ -1,6 +1,5 @@
 package com.backend.fcfm.controllers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,7 @@ public class PrestamoController {
 		List<Prestamo> prestamos;
 		if (usuario.getUser().equals("Admin")) {
 			prestamos = prestamoDao.findAll();
-		}else {
+		} else {
 			prestamos = prestamoDao.findByClient(usuario.getIdCliente());
 		}
 		model.addAttribute("prestamos", prestamos);
@@ -105,6 +104,7 @@ public class PrestamoController {
 		Prestamo prestamo = new Prestamo();
 		Cliente cliente = new Cliente();
 		prestamo.setCliente(cliente);
+		prestamo.setExpirado(0);
 		model.addAttribute("prestamo", prestamo);
 		return "catalogo/prestamo/form";
 	}
@@ -132,36 +132,58 @@ public class PrestamoController {
 			model.addAttribute("mensaje", mensaje);
 			return "catalogo/prestamo/form";
 		}
-		switch(prestamo.getTipoPrestamo()) {
+		switch (prestamo.getTipoPrestamo()) {
 		case 1:
-			prestamo.setMonto(prestamo.getMonto()*1.05f);
+			prestamo.setMonto(prestamo.getMonto() * 1.05f);
 			break;
 		case 2:
-			prestamo.setMonto(prestamo.getMonto()*1.1f);
+			prestamo.setMonto(prestamo.getMonto() * 1.1f);
 			break;
 		case 3:
-			prestamo.setMonto(prestamo.getMonto()*1.3f);
+			prestamo.setMonto(prestamo.getMonto() * 1.3f);
 			break;
 		}
-		
+
 		prestamoDao.insert(prestamo);
 		return "redirect:/prestamo";
 	}
 
 	@PostMapping({ "/abonar" })
-	public String abonar(@RequestParam(name = "cantidad") Float cantidad, @Valid Prestamo prestamo, Model model) {
-		if (model.getAttribute("usuario") == null) {
+	public String abonar(@RequestParam(name = "cantidad") Float cantidad, @RequestParam(name = "opcion") Integer opcion,
+			@Valid Prestamo prestamo, Model model) {
+		Cliente user = (Cliente) model.getAttribute("usuario");
+		if (user == null) {
 			return "redirect:/login";
 		}
+		Prestamo editar = prestamoDao.find(prestamo.getIdPrestamo());
 		Float total;
+		Cliente prestamoCliente = clienteDao.find(prestamo.getCliente().getIdCliente());
 		if (cantidad != null && cantidad >= 0) {
 			total = prestamo.getAbonoTotal() + cantidad;
 			if (total > prestamo.getMonto()) {
 				Map<String, String> errores = new HashMap<>();
 				errores.put("cantidad", "Cantidad excesiva");
 				model.addAttribute("errores", errores);
+
+				model.addAttribute("prestamo", editar);
 				return "catalogo/prestamo/abono";
-			} else if (total.equals(prestamo.getMonto())) {
+			}
+			if (opcion == 0) {
+				if (cantidad > prestamoCliente.getMonto()) {
+					Map<String, String> errores = new HashMap<>();
+					errores.put("cantidad", "No cuenta con saldo suficiente");
+					model.addAttribute("errores", errores);
+					model.addAttribute("prestamo", editar);
+					return "catalogo/prestamo/abono";
+				} else {
+					prestamoCliente.setMonto(prestamoCliente.getMonto() - cantidad);
+					clienteDao.update(prestamoCliente);
+					if(!user.getUser().equals("Admin")) {
+						model.addAttribute("usuario", prestamoCliente);
+					}
+				}
+			}
+			if (total.equals(prestamo.getMonto())) {
 				prestamo.setPagado(1);
 			}
 			prestamo.setAbonoTotal(total);
