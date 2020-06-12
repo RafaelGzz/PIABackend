@@ -75,18 +75,12 @@
 						<li class="list-group-item"><label for="cliente">Nombre:
 								<span th:text="*{cliente.nombreCompleto}"></span>
 						</label></li>
+						<li class="list-group-item"><label for="monto">Saldo:
+							$<span th:text="*{cliente.monto}"></span>
+						</label></li>
 						<li class="list-group-item"><label for="pagado">Pagado:
 								<span th:if="*{pagado} == 0">No</span> <span
 								th:if="*{pagado} == 1">Si</span>
-						</label></li>
-						<li class="list-group-item"><label for="abonoTotal">Abono
-								Total: $<span th:text="*{abonoTotal}"></span>
-						</label></li>
-						<li class="list-group-item"><label for="monto">Monto:
-								$<span th:text="*{monto}"></span>
-						</label></li>
-						<li class="list-group-item"><label for="monto">Deuda:
-								$<span th:text="*{monto} - *{abonoTotal}"></span>
 						</label></li>
 						<li class="list-group-item"><label for="fechaCreacion">Fecha
 								Creacion: <span th:text="*{fechaCreacion}"></span>
@@ -110,19 +104,61 @@
 				<div class="col-6">
 					<div class="card">
 						<div class="card-body">
-							<div class="form-group d-flex justify-content-center">
-								<label for="cantidad" style="font-size: 1.5rem;">Cantidad
+							<div class="row text-center">
+								<h5 class="col-12" th:if="*{expirado} == 1"><span class="col-1">Prestamo: </span><span class="col-8"></span>
+									<span class="col-3" th:if="*{tipoPrestamo} == 1">$<span th:text="*{#numbers.formatDecimal(monto/(1.05*1.1), 1, 2, 'POINT')}"></span></span>
+									<span class="col-3" th:if="*{tipoPrestamo} == 2">$<span th:text="*{#numbers.formatDecimal(monto/(1.1*1.1), 1, 2, 'POINT')}"></span></span> 
+									<span class="col-3" th:if="*{tipoPrestamo} == 3">$<span th:text="*{#numbers.formatDecimal(monto/(1.3*1.1), 1, 2, 'POINT')}"></span></span>
+								</h5>
+								<h5 class="col-12" th:unless="*{expirado} == 1" ><span class="col-1">Prestamo: </span><span class="col-8"></span>
+									<span class="col-3" th:if="*{tipoPrestamo} == 1">$<span th:text="*{#numbers.formatDecimal(monto/1.05, 1, 2, 'POINT')}"></span></span>
+									<span class="col-3" th:if="*{tipoPrestamo} == 2">$<span th:text="*{#numbers.formatDecimal(monto/1.1, 1, 2, 'POINT')}"></span></span> 
+									<span class="col-3" th:if="*{tipoPrestamo} == 3">$<span th:text="*{#numbers.formatDecimal(monto/1.3, 1, 2, 'POINT')}"></span></span>
+								</h5>
+							</div>
+							<div class="row text-center">
+								<h5 class="col-12"><span class="col-1">Interes: </span><span class="col-8"></span>
+									<span class="col-3" th:if="*{tipoPrestamo} == 1">$<span th:text="*{monto} - *{monto}/1.05"></span></span>
+									<span class="col-3" th:if="*{tipoPrestamo} == 2">$<span th:text="*{monto} - *{monto}/1.1"></span></span> 
+									<span class="col-3" th:if="*{tipoPrestamo} == 3">$<span th:text="*{monto} - *{monto}/1.3"></span></span>
+								</h5>
+							</div>
+							<div class="row text-center">
+								<h5 th:if="*{expirado} == 1" class="text-danger col-12"><span class="col-1">Expirado: </span><span class="col-8"></span>
+									<span class="col-3">$<span th:text="*{monto}*.1"></span></span>
+								</h5>
+							</div>
+							<div class="row text-center">
+								<h5 class="text-success col-12"><span class="col-1">Abonado: </span><span class="col-8"></span>
+									<span class="col-3">$<span th:text="*{abonoTotal}"></span></span>
+								</h5>
+							</div>
+							<div class="row text-center">
+								<h5 class="col-12"><span class="col-1">Deuda: </span><span class="col-8"></span>
+									<span class="col-3">$<span th:text="*{monto} - *{abonoTotal}"></span></span>
+								</h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-body">
+							
+							<div class="form-group row">
+								<label for="cantidad" class="col-6" style="font-size: 1.5rem;">Cantidad
 									a abonar: </label>
-								<div style="width: 1rem;"></div>
-								<input class="form-control" type="text" id="cantidad"
+								<input class="form-control col-6" type="text" id="cantidad"
 									name="cantidad">
 							</div>
-							<div>
-								<input type="radio" id="saldo" name="opcion" value="0" required>
-								<label for="Saldo">Desde saldo personal</label>
-								<br> 
-								<input type="radio" id="nuevo" name="opcion" value="1" required> 
-								<label for="Nuevo">Nuevo abono</label>
+							<div class="row col-12 text-center">
+								<div class="form-group col-6">
+									<input  type="radio" id="saldo" name="opcion" value="0" required>
+									<label class="form-label" for="Saldo">Desde saldo personal</label>
+								</div>
+								<div class="form-group col-6">
+									<input  type="radio" id="nuevo" name="opcion" value="1" required> 
+									<label class="form-label" for="Nuevo">Nuevo abono</label>
+								</div>
 							</div>
 							<div class="form-text text-danger"
 								th:if="${errores != null && errores.containsKey('cantidad')}"

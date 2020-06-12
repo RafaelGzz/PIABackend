@@ -42,6 +42,7 @@ public class PrestamoDaoImp implements PrestamoDao {
 		return result;
 	}
 
+	@Transactional
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prestamo> findFecha(String fechaInicio, String fechaFin) {
@@ -52,6 +53,7 @@ public class PrestamoDaoImp implements PrestamoDao {
 		return result;
 	}
 
+	@Transactional
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prestamo> findPorPagado(Integer opcion) {
@@ -91,6 +93,7 @@ public class PrestamoDaoImp implements PrestamoDao {
 
 	}
 
+	@Transactional
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prestamo> findByClient(Integer id) {
